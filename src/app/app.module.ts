@@ -17,11 +17,14 @@ import {MatIconModule} from '@angular/material/icon'
 import {MatButtonModule} from '@angular/material/button'
 import {MatSidenavModule} from '@angular/material/sidenav'
 import {MatListModule} from '@angular/material/list';
+import {MatTableModule} from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
 import { ManageReservationsComponent } from './manage-reservations/manage-reservations.component';
 import { CreateCarComponent } from './create-car/create-car.component';
 import { MainPageComponent } from './main-page/main-page.component';
 import { DatepickerComponent } from './datepicker/datepicker.component';
 import { AdminUsersComponent } from './admin-users/admin-users.component'
+
 
 
 @NgModule({
@@ -48,6 +51,8 @@ import { AdminUsersComponent } from './admin-users/admin-users.component'
     MatListModule,
     BrowserAnimationsModule,
     MatCardModule,
+    MatTableModule,
+    MatPaginatorModule,
     RouterModule.forRoot([
       {path: '', component: LoginComponent},
       {path: 'login', component: LoginComponent},

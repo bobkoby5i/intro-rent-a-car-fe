@@ -4,8 +4,12 @@
 <form (submit)="onlogin(loginform)" #loginform="ngForm">
 <mat-form-field appearance="fill">
     <input matInput placeholder="Email"
-           name="email"
-           ngModel>
+            name="email"
+            required
+            email
+            #emailInput="ngModel"
+            ngModel>
+    <mat-error *ngIf="emailInput.invalid">Please give a valid email</mat-error>
 </mat-form-field>
 
 <mat-form-field appearance="fill">

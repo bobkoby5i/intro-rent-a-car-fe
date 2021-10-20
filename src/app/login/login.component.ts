@@ -9,7 +9,7 @@ import { NgForm } from "@angular/forms";
 })
 
 export class LoginComponent {
-onlogin(loginform: NgForm){
+onLogin(loginform: NgForm){
     console.log(loginform.value.email)
 }
 }

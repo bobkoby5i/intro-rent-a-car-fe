@@ -10,18 +10,27 @@ import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RegisterComponent } from './register/register.component';
 import {  RouterModule } from '@angular/router';
+import { NavbarComponent } from './navbar/navbar.component';
+
+import {MatToolbarModule} from '@angular/material/toolbar'
+import {MatIconModule} from '@angular/material/icon'
+import {MatButtonModule} from '@angular/material/button'
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,
     MatFormFieldModule,
     FormsModule,
     MatInputModule,
+    MatToolbarModule,
+    MatIconModule,
+    MatButtonModule,
     BrowserAnimationsModule,
     MatCardModule,
     RouterModule.forRoot([

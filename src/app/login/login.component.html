@@ -1,18 +1,20 @@
 <div style="height: 100vh; overflow: hidden">
 <mat-card>
 
-<form>
+<form (submit)="onlogin(loginform)" #loginform="ngForm">
 <mat-form-field appearance="fill">
-    <mat-label>Email</mat-label>
-    <input matInput>
+    <input matInput placeholder="Email"
+           name="email"
+           ngModel>
 </mat-form-field>
 
 <mat-form-field appearance="fill">
-    <mat-label>Password</mat-label>
-    <textarea matInput></textarea>
+    <input matInput placeholder="Password"
+    name="password"
+    ngModel>
 </mat-form-field>
 
-<button class="btn btn-primary">Login</button>
+<button class="btn btn-primary" type="submit">Login</button>
 </form>
 </mat-card>
 </div>

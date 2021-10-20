@@ -1,4 +1,6 @@
 import { Component } from "@angular/core";
+import { NgForm } from "@angular/forms";
+
 
 @Component ({
     selector: 'app-login',
@@ -7,5 +9,7 @@ import { Component } from "@angular/core";
 })
 
 export class LoginComponent {
-
+onlogin(loginform: NgForm){
+    console.log(loginform.value.email)
+}
 }

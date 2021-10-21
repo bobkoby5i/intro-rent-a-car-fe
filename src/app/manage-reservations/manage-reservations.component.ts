@@ -16,7 +16,7 @@ export class ManageReservationsComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    
+
   }
 
   ngAfterViewInit(){

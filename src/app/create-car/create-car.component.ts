@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NgForm } from "@angular/forms";
 
 @Component({
   selector: 'app-create-car',
@@ -11,5 +12,9 @@ export class CreateCarComponent implements OnInit {
 
   ngOnInit(): void {
   }
+
+  onCreate(createform: NgForm){
+    console.log(createform.value.brand)
+}  
 
 }

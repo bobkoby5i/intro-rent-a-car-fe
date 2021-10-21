@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { UserService } from '../services/user.service'
 
 @Component({
   selector: 'app-register',
@@ -7,14 +8,24 @@ import { NgForm } from '@angular/forms';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
+  errorMessage: string; 
 
-  constructor() { }
+  constructor(private userservice: UserService) { }
 
   onRegister(loginform: NgForm){
-    console.log(loginform.value.email)
+    const email = loginform.value.email;
+    const pass  = loginform.value.password;
+    console.log(loginform.value.email);
+     this.userservice.createUser(email, pass).subscribe(data => {
+       //this.router.navigate(['/login']);
+       this.errorMessage = "OK";
+     },err => {
+       this.errorMessage = "Username already exist";
+     });
 }  
 
   ngOnInit(): void {
   }
+
 
 }

@@ -24,6 +24,9 @@ import { CreateCarComponent } from './create-car/create-car.component';
 import { MainPageComponent } from './main-page/main-page.component';
 import { DatepickerComponent } from './datepicker/datepicker.component';
 import { AdminUsersComponent } from './admin-users/admin-users.component'
+import { UserService } from './services/user.service'
+import { HttpClientModule } from '@angular/common/http';
+
 
 
 
@@ -40,6 +43,7 @@ import { AdminUsersComponent } from './admin-users/admin-users.component'
     AdminUsersComponent
   ],
   imports: [
+    HttpClientModule,
     BrowserModule,
     MatFormFieldModule,
     FormsModule,

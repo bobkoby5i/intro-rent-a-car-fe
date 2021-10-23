@@ -18,7 +18,7 @@ export class UserService {
   createUser(email: string, password: string) {
     console.log("create user " + email)
     const authData = {email: email, password: password};
-    return this.http.post(API_URL + '/user/signup', authData);
+    return this.http.post(API_URL + '/user/register', authData);
   }
 
 }

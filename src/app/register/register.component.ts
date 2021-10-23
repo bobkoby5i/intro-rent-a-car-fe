@@ -16,8 +16,9 @@ export class RegisterComponent implements OnInit {
     const email = loginform.value.email;
     const pass  = loginform.value.password;
     console.log(loginform.value.email);
-     this.userservice.createUser(email, pass).subscribe(data => {
+     this.userservice.createUser(email, pass).subscribe(res => {
        //this.router.navigate(['/login']);
+       console.log(res);
        this.errorMessage = "OK";
      },err => {
        this.errorMessage = "Username already exist";

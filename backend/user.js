@@ -25,5 +25,29 @@ router.post('/register', (req, res, next) => {
     //res.send('Hello from Server GET /api/user/register')
     res.status(201).json({message: 'User register SUCCESS. Response from nodeJs as json'});
 })
+
+
+router.post('/login', (req, res, next) => {
+    console.log('POST /api/user/login - received in user.js' );
+    console.log('user: ' + req.body.email);
+    p_email = req.body.email
+    bcrypt.hash(req.body.password, 10).then(hash => {
+        console.log('pass: ' + hash);
+        const user = new User({
+            email: "a@a.com",
+            password: hash, 
+            isAdmin: 0 
+        });
+        if (user.email != p_email) {
+            console.log('email does not match a@a.com - sorry');
+            return res.status(401).json({message:"Auth failed."})
+        }
+        console.log('email match a@a.com - ok');
+        res.status(200).json({message: 'User login SUCCESS. enjoy'})
+    })
+    //res.send('Hello from Server GET /api/user/register')
+    
+});
+ 
  
 module.exports = router;

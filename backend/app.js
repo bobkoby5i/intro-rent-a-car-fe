@@ -12,12 +12,14 @@ app.get('/hello', function(req, res){
     res.send('GET /api/hello from app.js')
 })
 
-
-app.use((req, res,next) => {
-    console.log('GET * This a response from app.js');
-    res.send('GET * This a response from app.js')
+app.get('/',(req, res,next) => {
+    console.log('GET /api from app.js');
+    res.send('This a response from app.js')
 });
 
+
+const userRoutes = require('./user'); //reference to ./user.js
+app.use('/user', userRoutes)
 
 module.exports = app;
 

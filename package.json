@@ -1,15 +1,11 @@
 {
-  "name": "intro-rent-a-car-fe",
+  "name": "intro-rent-a-car",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start:server": "nodemon server.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git@github.com-bobkoby5i:bobkoby5i/intro-rent-a-car-fe.git"
   },
   "keywords": [],
   "author": "",

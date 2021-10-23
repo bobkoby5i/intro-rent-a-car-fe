@@ -21,4 +21,11 @@ export class UserService {
     return this.http.post(API_URL + '/user/register', authData);
   }
 
+  userLogin(p_email: string, p_pass: string) {
+    console.log("login user " + p_email)
+    const authData = {email: p_email, password: p_pass};
+    return this.http.post(API_URL + '/user/login', authData);
+    return this.http.post<{token:string, expiresIn: any, admin:any}>(API_URL + '/user/login', authData);
+  }  
+
 }

@@ -12,10 +12,10 @@ export class RegisterComponent implements OnInit {
 
   constructor(private userservice: UserService) { }
 
-  onRegister(loginform: NgForm){
-    const email = loginform.value.email;
-    const pass  = loginform.value.password;
-    console.log(loginform.value.email);
+  onRegister(registerform: NgForm){
+    const email = registerform.value.email;
+    const pass  = registerform.value.password;
+    console.log(registerform.value.email);
      this.userservice.createUser(email, pass).subscribe(res => {
        //this.router.navigate(['/login']);
        console.log(res);

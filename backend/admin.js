@@ -1,7 +1,8 @@
 const express = require('express')
 const router = express.Router();
 const multer = require('multer')
-const temp_folder = './tmp/uploads';
+//const temp_folder = './tmp/uploads';
+const temp_folder = '/tmp';
 
 const storage = multer.diskStorage({
     destination: function(req, file, cb){

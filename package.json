@@ -5,7 +5,11 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start:server": "nodemon server.js"
+    "heroku-postbuild": "npm run client-fe-install && npm run client-fe-build",
+    "client-fe-install": "cd rent-a-car-fe && npm install",
+    "client-fe-build": "cd rent-a-car-fe && npm run build-prod",
+    "start:server": "nodemon server.js",
+    "start":"node server.js"
   },
   "keywords": [],
   "author": "",
@@ -17,5 +21,9 @@
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.0.12"
-  }
+  },
+  "engines": {
+    "node": "14.16",
+    "npm": "6.14"
+  }  
 }

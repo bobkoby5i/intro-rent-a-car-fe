@@ -10,20 +10,30 @@ const jwt = require('jsonwebtoken');
 router.post('/register', (req, res, next) => {
     console.log('POST /api/user/register - received in user.js' );
     console.log('user: ' + req.body.email);
-    bcrypt.hash(req.body.password, 10).then(hash => {
+
+    User.findOne({email: req.body.email}).then(user => {
+        fetcheduser = user;
+        if(user) {
+          return res.status(404).json({message: 'Register failed. User already exiss.'});
+        }
+        return bcrypt.hash(req.body.password, 10)
+    }).then(hash =>{
         const user = new User({
             email: req.body.email,
-            password: hash, 
-            isAdmin: 0 
-        });
+            password: hash,
+            isAdmin: 0
+          });   
+        console.log('saving user in mongo...');
         user.save().then(result => {
-            res.status(200).json({message:'User Created'});
+            console.log('saved');
+            res.status(201).json({message:'User register SUCCESS. Response from nodeJs as json'});
         }).catch(err => {
             console.log(err);
         })
     })
+
     //res.send('Hello from Server GET /api/user/register')
-    res.status(201).json({message: 'User register SUCCESS. Response from nodeJs as json'});
+    //res.status(201).json({message: 'User register SUCCESS. Never should get here'});
 })
 
 
@@ -33,16 +43,16 @@ router.post('/login', (req, res, next) => {
     let fetcheduser;
     const p_email = req.body.email
     const p_pass = req.body.password
-    //User.findOne({email: p_email}).then(user => {
-    bcrypt.hash(req.body.password, 10).then(hash => {
-        console.log('pass: ' + hash);
-        const user = new User({
-            _id: "1234567890",
-            email: "a@a.com",
-            //password = "password"
-            password: "$2a$10$8ckbvK6KPK.JP1EVwEDsZugWo1YJMGr.HHDvWkEOlHI6CFHLPaI9W",
-            isAdmin: 0
-        });
+    User.findOne({email: p_email}).then(user => {
+    //bcrypt.hash(req.body.password, 10).then(hash => {
+        console.log('email: ' + p_email);
+        // const user = new User({
+        //     _id: "1234567890",
+        //     email: "a@a.com",
+        //     //password = "password"
+        //     password: "$2a$10$8ckbvK6KPK.JP1EVwEDsZugWo1YJMGr.HHDvWkEOlHI6CFHLPaI9W",
+        //     isAdmin: 0
+        // });
 
         if (!user) {
             console.log('Auth failed: User not found.');
@@ -59,7 +69,7 @@ router.post('/login', (req, res, next) => {
         console.log('user found. passwd OK. generate token');        
         const p_sign_secret = "jwt_secret"
         const p_isAdmin = fetcheduser.isAdmin;
-        const p_token = jwt.sign({email: fetcheduser.email, userId: fetcheduser.isAdmin._id},p_sign_secret, {expiresIn:'1h'});
+        const p_token = jwt.sign({email: fetcheduser.email, userId: fetcheduser._id, isAdmin: p_isAdmin},p_sign_secret, {expiresIn:'1h'});
         const p_expires = 3600
         console.log('token:'+p_token);   
         return res.status(200).json({token:p_token, expiresIn: p_expires, admin:p_isAdmin}) 

@@ -31,6 +31,6 @@ export class CreateCarComponent implements OnInit {
     console.log(this.selectedFile);
     console.log(this.selectedFile.name );
     this.fd.append('file', this.selectedFile, this.selectedFile.name);
-    this.http.post(BE_URL + '/api/admin/saveimage',this.fd).subscribe(res => console.log(res))
+    this.http.post(BE_URL + '/api/admin/save-image',this.fd).subscribe(res => console.log(res))
   }
 }

@@ -9,7 +9,7 @@
     "client-fe-install": "cd rent-a-car-fe && npm install",
     "client-fe-build": "cd rent-a-car-fe && npm run build-prod",
     "start:server": "nodemon server.js",
-    "start":"node server.js"
+    "start": "node server.js"
   },
   "keywords": [],
   "author": "",
@@ -20,10 +20,11 @@
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^6.0.12"
+    "mongoose": "^6.0.12",
+    "multer": "^1.4.3"
   },
   "engines": {
     "node": "14.16",
     "npm": "6.14"
-  }  
+  }
 }

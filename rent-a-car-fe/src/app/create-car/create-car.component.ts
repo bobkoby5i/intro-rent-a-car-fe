@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from "@angular/forms";
+import { HttpClient,  } from '@angular/common/http';
+import { environment } from '../../environments/environment';
+
+let API_URL = environment.baseUrlBe + "/api";
+let _baseUrlFe = environment.baseUrlFe;  
 
 @Component({
   selector: 'app-create-car',
@@ -7,14 +12,25 @@ import { NgForm } from "@angular/forms";
   styleUrls: ['./create-car.component.css']
 })
 export class CreateCarComponent implements OnInit {
+  
+  selectedFile: File;
+  fd = new FormData();
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
   ngOnInit(): void {
   }
 
   onCreate(createform: NgForm){
     console.log(createform.value.brand)
-}  
+  }  
 
+  onFileSelected(event: any) {
+    console.log(event);
+    this.selectedFile = <File>event.target.files[0];
+    console.log(this.selectedFile);
+    console.log(this.selectedFile.name );
+    this.fd.append('file', this.selectedFile, this.selectedFile.name);
+    this.http.post(API_URL + '/user/admin/saveimage',this.fd).subscribe(res => console.log(res))
+  }
 }

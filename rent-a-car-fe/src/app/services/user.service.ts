@@ -70,7 +70,7 @@ export class UserService {
     clearTimeout(this.tokenTimer)
     this.setAmin(0)
     localStorage.removeAll()
-    this.router.navigate(['register'])
+    this.router.navigate(['login'])
   }  
 
 }

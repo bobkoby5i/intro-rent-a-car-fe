@@ -32,7 +32,7 @@ onLogin(loginform: NgForm){
         if (token) {
             this.userservice.saveUserData(token, expirationDate, isAdmin);
             this.userservice.setTimer(expiresIn)
-            this.router.navigate(['/register'])
+            this.router.navigate(['/main'])
         }
  
     })

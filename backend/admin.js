@@ -1,12 +1,16 @@
 const express = require('express')
 const router = express.Router();
 const multer = require('multer')
+const temp_folder = './tmp/uploads';
 
 const storage = multer.diskStorage({
-    destination: function(re, file, cb){
-        cb(null, './tmp/uploads');
+    destination: function(req, file, cb){
+        console.log("destination  : " + temp_folder);
+        cb(null, temp_folder);
     },
     filename: function (req, file, cb){
+        console.log("filename tmp : " + "xxx");
+        console.log("filename     : " + file.originalname);
         cb(null, file.originalname)
     }
 })

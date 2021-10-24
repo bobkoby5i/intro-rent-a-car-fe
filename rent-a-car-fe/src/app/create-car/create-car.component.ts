@@ -3,7 +3,7 @@ import { NgForm } from "@angular/forms";
 import { HttpClient,  } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 
-let API_URL = environment.baseUrlBe + "/api";
+let BE_URL = environment.baseUrlBe;
 let _baseUrlFe = environment.baseUrlFe;  
 
 @Component({
@@ -31,6 +31,6 @@ export class CreateCarComponent implements OnInit {
     console.log(this.selectedFile);
     console.log(this.selectedFile.name );
     this.fd.append('file', this.selectedFile, this.selectedFile.name);
-    this.http.post(API_URL + '/user/admin/saveimage',this.fd).subscribe(res => console.log(res))
+    this.http.post(BE_URL + '/api/admin/saveimage',this.fd).subscribe(res => console.log(res))
   }
 }

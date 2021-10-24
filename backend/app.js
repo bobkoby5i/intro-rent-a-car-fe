@@ -36,7 +36,9 @@ app.get('/',(req, res,next) => {
 });
 
 const userRoutes = require('./user'); //reference to ./user.js
+const adminRoutes = require('./admin'); //reference to ./admin.js
 app.use('/user', userRoutes)
+app.use('/admin', adminRoutes)
 
 
 module.exports = app;

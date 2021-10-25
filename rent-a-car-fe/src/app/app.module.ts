@@ -9,7 +9,7 @@ import { MatCardModule } from '@angular/material/card';
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RegisterComponent } from './register/register.component';
-import {  RouterModule } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { NavbarComponent } from './navbar/navbar.component';
 
 import {MatToolbarModule} from '@angular/material/toolbar'
@@ -25,6 +25,7 @@ import { MainPageComponent } from './main-page/main-page.component';
 import { DatepickerComponent } from './datepicker/datepicker.component';
 import { AdminUsersComponent } from './admin-users/admin-users.component'
 import { UserService } from './services/user.service'
+import { AdminService } from './services/admin.service'
 import { HttpClientModule } from '@angular/common/http';
 
 
@@ -67,7 +68,7 @@ import { HttpClientModule } from '@angular/common/http';
       {path: 'users', component: AdminUsersComponent},
     ])
   ],
-  providers: [UserService, LoginComponent],
+  providers: [UserService, LoginComponent, AdminService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

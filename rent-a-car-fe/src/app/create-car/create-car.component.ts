@@ -44,5 +44,6 @@ export class CreateCarComponent implements OnInit {
     this.adminservice.createCar(createform.value.brand, createform.value.model, createform.value.power, createform.value.seats, filename).subscribe(
       res => console.log(res)
     );
+    createform.resetForm();
   }  
 }

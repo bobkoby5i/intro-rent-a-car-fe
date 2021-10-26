@@ -14,7 +14,7 @@ router.post('/register', (req, res, next) => {
     User.findOne({email: req.body.email}).then(user => {
         fetcheduser = user;
         if(user) {
-          return res.status(404).json({message: 'Register failed. User already exiss.'});
+          return res.status(400).json({message: 'Register failed. User already exiss.'});
         }
         return bcrypt.hash(req.body.password, 10)
     }).then(hash =>{

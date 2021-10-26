@@ -67,7 +67,7 @@ router.get('/users', (req, res, next) => {
     // select email, isAdmin from users
     User.find({}, 'email isAdmin').then( users => {   
         if (!users) {
-            res.status(404).json({message: 'GET users - not users'});
+            res.status(404).json({message: 'GET users - no users'});
         }
         res.status(200).json(users);
     }).catch(error => {
@@ -82,7 +82,7 @@ router.delete('/delete-user/:id', (req, res, next) => {
     User.deleteOne({_id:user_id}).then(response => {
         User.find({}, 'email isAdmin').then( users => {   
             if (!users) {
-                res.status(404).json({message: 'GET users - not users'});
+                res.status(404).json({message: 'GET users - no users'});
             }
             res.status(200).json(users);
         }).catch(error => {console.log(error)})
@@ -96,7 +96,7 @@ router.patch('/make-admin/:id', (req, res, next) => {
     User.updateOne({_id:user_id},{$set: {isAdmin:p_isAdmin}}, {new: true}).then(response => {
         User.find({}, 'email isAdmin').then( users => {   
             if (!users) {
-                res.status(404).json({message: 'GET users - not users'});
+                res.status(404).json({message: 'GET users - no users'});
             }
             res.status(200).json(users);
         }).catch(error => {console.log(error)})

@@ -5,6 +5,7 @@ const multer = require('multer')
 //const temp_folder = './tmp/uploads';
 const temp_folder = '/tmp';
 const Car = require('./models/model-car')
+const User = require('./models/model-user')
 
 
 const storage = multer.diskStorage({
@@ -25,7 +26,8 @@ const upload = multer({
 })
  
 router.post('/save-image', upload.single('file'), (req, res) => {
-    console.log('POST /api/admin/save-image - received in admin.js' );
+
+    console.log('admin.js: received POST /api/admin/save-image' );
     res.status(201).json({message: 'Image save received not saved  - SUCCESS.'});
 })
 
@@ -60,7 +62,18 @@ router.post('/create-car', (req, res, next) => {
     })
 })
 
-
+router.get('/users', (req, res, next) => {
+    console.log('admin.js: received GET /api/admin/users' );
+    // select email, isAdmin from users
+    User.find({}, 'email isAdmin').then( user => {   
+        if (!user) {
+            res.status(404).json({message: 'GET users - not users'});
+        }
+        res.status(200).json(user);
+    }).catch(error => {
+        console.log(error);
+    })
+})
 
  
 module.exports = router;

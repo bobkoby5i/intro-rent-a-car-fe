@@ -28,6 +28,9 @@ export class AdminService {
       imgUrl:   p_filename
     };
     return this.http.post(API_URL + '/api/admin/create-car', carData);
+  }
 
+  getUsers(){
+    return this.http.get(API_URL + '/api/admin/users');
   }
 }

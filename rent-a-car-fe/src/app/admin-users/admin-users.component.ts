@@ -3,6 +3,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { AdminService } from '../services/admin.service';
 
+
 @Component({
   selector: 'app-admin-users',
   templateUrl: './admin-users.component.html',
@@ -10,8 +11,8 @@ import { AdminService } from '../services/admin.service';
 })
 export class AdminUsersComponent implements OnInit {
 
-  displayedColumns: string[] = [ 'email', 'isAdmin', 'edit'];
-  dataSource = new MatTableDataSource<User>();
+  displayedColumns: string[] = [  'email', 'isAdmin', 'edit'];
+  dataSource = new MatTableDataSource<UserRow>();
   users: any;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -27,13 +28,10 @@ export class AdminUsersComponent implements OnInit {
       this.users = res;
       this.users.forEach((element: User) => {
         const user_row: UserRow = {
+          id: element._id,
           email:   element.email,
-          isAdmin: element.isAdmin,
-          action: 'EDIT'
+          isAdmin: element.isAdmin
         }
-        //const email = element.email;
-        //const isAdmin = element.email;
-        //const action = "ACTION";
         ELEMENT_DATA.push(user_row);
       });
       this.dataSource.data = ELEMENT_DATA;
@@ -42,6 +40,45 @@ export class AdminUsersComponent implements OnInit {
     
   }
 
+  onDelete(element: any): void {
+    console.log('onDelete()');
+    this.adminservice.deleteUser(element.id).subscribe(
+      res => {
+        const ELEMENT_DATA: UserRow[] = [];
+        this.users = res;
+        this.users.forEach((element: User) => {
+          const user_row: UserRow = {
+            id: element._id,
+            email:   element.email,
+            isAdmin: element.isAdmin
+          }
+          ELEMENT_DATA.push(user_row);
+        });
+        this.dataSource.data = ELEMENT_DATA;
+        console.log(ELEMENT_DATA);
+      });
+  }  
+
+  onAdmin(element: any): void {
+    console.log('onAdmin()');
+    this.adminservice.makeAdmin(element.id).subscribe(
+      res => {
+        const ELEMENT_DATA: UserRow[] = [];
+        this.users = res;
+        this.users.forEach((element: User) => {
+          const user_row: UserRow = {
+            id: element._id,
+            email:   element.email,
+            isAdmin: element.isAdmin
+          }
+          ELEMENT_DATA.push(user_row);
+        });
+        this.dataSource.data = ELEMENT_DATA;
+        console.log(ELEMENT_DATA);
+      });
+  }  
+
+
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
   }
@@ -49,23 +86,15 @@ export class AdminUsersComponent implements OnInit {
 }
 
 export interface UserRow {
+  id: string;
   email: string;
   isAdmin: number;
-  action: string;
 }
 export interface User {
+  _id: string;
   email: string;
   isAdmin: number;
 }
 
 
 
-const ELEMENT_DATA2: User[] = [
-  {email: 'Hydrogen', isAdmin: 0},
-  {email: 'Helium', isAdmin: 0},
-  {email: 'Lithium', isAdmin: 0},
-  {email: 'Beryllium', isAdmin: 0},
-  {email: 'Boron', isAdmin: 0},
-  {email: 'Carbon', isAdmin: 0},
-  {email: 'Nitrogen', isAdmin: 0},
-];

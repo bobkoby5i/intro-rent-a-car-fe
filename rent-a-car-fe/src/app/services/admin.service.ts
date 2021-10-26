@@ -33,4 +33,17 @@ export class AdminService {
   getUsers(){
     return this.http.get(API_URL + '/api/admin/users');
   }
+
+  deleteUser(id:string){
+    console.log("deleteUser:" + id);
+    return this.http.delete(API_URL + '/api/admin/delete-user/'+id);
+  }
+
+  makeAdmin(id:string){
+    console.log("makeAdmin:" + id);
+    const userDate = {isAdmin:1}
+    return this.http.patch(API_URL + '/api/admin/make-admin/'+id, userDate);
+  }
+  
+
 }

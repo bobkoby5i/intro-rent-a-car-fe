@@ -27,6 +27,8 @@ import { AdminUsersComponent } from './admin-users/admin-users.component'
 import { UserService } from './services/user.service'
 import { AdminService } from './services/admin.service'
 import { HttpClientModule } from '@angular/common/http';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker'
+
 
 
 
@@ -44,6 +46,8 @@ import { HttpClientModule } from '@angular/common/http';
     AdminUsersComponent
   ],
   imports: [
+    BsDatepickerModule.forRoot(),
+    BrowserAnimationsModule, 
     HttpClientModule,
     BrowserModule,
     MatFormFieldModule,

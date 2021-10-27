@@ -6,6 +6,7 @@ const multer = require('multer')
 const temp_folder = '/tmp';
 const Car = require('./models/model-car')
 const User = require('./models/model-user')
+const Reservation = require('./models/model-resevation')
 
 
 const storage = multer.diskStorage({
@@ -104,7 +105,23 @@ router.patch('/make-admin/:id', (req, res, next) => {
 })
 
 
+router.post('/cars', (req, res) => {
+    Reservation.find().or([{$and: [{from: {$lte: req.body.from}},{until: {$gte: req.body.from}}] },
+                           {$and: [{from: {$lte: req.body.until}},{until: {$gte: req.body.until}}] },
+                           {$and: [{from: {$gte: req.body.from}},{until: {$lte: req.body.until}}] } ]
+                          ).then(cars => {
+                              if (cars[0] === udefined) {
+                                  Car.find().then(car =>{
+                                      res.status(200).json(car)
+                                  }).catch(error => console.log(error))
+                              } else {
+                                  Car.find({_id: {$ne: cars[0].car._id}}).then(cars => {
+                                      res.status(200).json(cars)
+                                  }).catch(error => console.log(error))
+                              }
 
+                          })
+});
 
  
 module.exports = router;

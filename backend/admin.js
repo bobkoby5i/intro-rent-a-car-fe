@@ -44,7 +44,7 @@ router.post('/create-car', (req, res, next) => {
         model : req.body.model,
         power : req.body.power,
         seats : req.body.seats,
-        imgUrl: req.body.imgUr
+        imgUrl: req.body.imgUrl
     });   
 
     console.log('POST /api/cars/create-car - received in admin.js ' + 

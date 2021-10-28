@@ -6,7 +6,7 @@ const multer = require('multer')
 const temp_folder = '/tmp';
 const Car = require('./models/model-car')
 const User = require('./models/model-user')
-const Reservation = require('./models/model-resevation')
+const Reservation = require('./models/model-reservation')
 
 
 const storage = multer.diskStorage({

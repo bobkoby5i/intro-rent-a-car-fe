@@ -1,24 +1,16 @@
 <div class="row">
-    <h1>Please give a dates</h1>
-</div>
+    <h1 class="text-center">Please give a dates</h1>
+    <form (subnmt)="onSearch(dateform)" #dateform="ngForm" class="text-center">
+        <input 
+        type="text"
+        ngModel
+        placeholder="Daterangepicker"
+        matInput
+        bsDaterangepicker
+        name="dateinput"
+        [bsConfig]="{rangeInputFormat: 'YYYY-MM-DD', containerClass: 'theme-dark-blue'}"
+        ><BR>
+<button type="submit" class="btn btn-outline-success btn-block mx-auto" >Search</button>    
+</form>
 
-<div class="row">
-    
-    <div style="margin : auto; text-align: center">
-        <form (subnmt)="onSearch(dateform)" #dateform="ngForm">
-            <input 
-            type="text"
-            ngModel
-            placeholder="Daterangepicker"
-            class="form-control"
-            bsDaterangepicker
-            name="dateinput"
-            [bsConfig]="{rangeInputFormat: 'YYYY-MM-DD', containerClass: 'theme-dark-blue'}"
-            >
-            <button type="submit" class="btn btn-outline-success btn-block" >Search</button>
-
-        </form>
-
-    </div>
-    
 </div>

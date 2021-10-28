@@ -106,21 +106,23 @@ router.patch('/make-admin/:id', (req, res, next) => {
 
 
 router.post('/cars', (req, res) => {
-    Reservation.find().or([{$and: [{from: {$lte: req.body.from}},{until: {$gte: req.body.from}}] },
-                           {$and: [{from: {$lte: req.body.until}},{until: {$gte: req.body.until}}] },
-                           {$and: [{from: {$gte: req.body.from}},{until: {$lte: req.body.until}}] } ]
-                          ).then(cars => {
-                              if (cars[0] === udefined) {
-                                  Car.find().then(car =>{
-                                      res.status(200).json(car)
-                                  }).catch(error => console.log(error))
-                              } else {
-                                  Car.find({_id: {$ne: cars[0].car._id}}).then(cars => {
-                                      res.status(200).json(cars)
-                                  }).catch(error => console.log(error))
-                              }
-
-                          })
+    console.log(req.body)
+    Reservation.find().or([{$and: [{from: {$lte: req.body.car_from}},{till: {$gte: req.body.car_from}}] },
+            {$and: [{from: {$lte: req.body.car_till}},{till: {$gte: req.body.car_till}}] },
+            {$and: [{from: {$gte: req.body.car_from}},{till: {$lte: req.body.car_till}}] } ]).then(cars => {
+                console.log("find() cars[0] ", cars )
+                if (cars[0] === undefined) {
+                    console.log("undefined ok. then get all cars.... " )
+                    Car.find().then(car =>{
+                        res.status(200).json(car)
+                    }).catch(error => console.log(error))
+                } else {
+                    console.log("cars[0]. then get all cars.... " )
+                    Car.find({_id: {$ne: cars[0].car._id}}).then(cars => {
+                        res.status(200).json(cars)
+                    }).catch(error => console.log(error))
+                }
+            })
 });
 
  

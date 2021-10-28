@@ -1,8 +1,11 @@
 const mongoose = require('mongoose')
+const Schema = mongoose.Schema;
 const reservationSchema = mongoose.Schema({
-    carId: String,
-    from: String,
-    till: String
+    car_id: {type: Schema.Types.ObjectId, ref: 'Car'},
+    from: Number,
+    till: Number,
+    fromDate: Date,
+    tillDate: Date
 });
 
 

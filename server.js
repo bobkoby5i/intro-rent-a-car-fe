@@ -25,6 +25,10 @@ if (process.env.NODE_ENV === "production"){
     server.use(express.static('rent-a-car-fe/dist'))
 }
 
+
+//app.use('/tmp', express.static(path.join(__dirname, 'tmp'))); 
+app.use('/tmp', express.static( '/tmp')); 
+
 //server.use(express.static('rent-a-car-fe/dist'))
 
 server.get('/hello', function(req, res){

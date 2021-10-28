@@ -8,15 +8,21 @@ import { UserService } from '../services/user.service';
 })
 export class MainPageComponent implements OnInit {
 
-  cars:any;
+  cars: any;
+  path: any;
 
   constructor(private userservice: UserService) { }
 
   ngOnInit(): void {
     this.userservice.selectedCars.subscribe(res => {
       this.cars = res;
+      this.path = this.userservice.path_to_images
     });
 
   }
+
+  onRent(car: any){
+    console.log("onRent()")
+  }  
 
 }

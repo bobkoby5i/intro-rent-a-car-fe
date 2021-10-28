@@ -5,3 +5,37 @@
         </div>
     </div>
 </div>
+<div class="row">
+    <ng-container *ngFor="let car of cars; let i = index">
+        <div class="col-md-5">
+            <div class="card">
+                <div class="card-header"></div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <p class="brans">{{car?.brand}}</p>
+                        </div>
+                        <div class="col-md-3">
+                            <p class="model">{{car.model}}</p><br>
+                            <img src="{{path}}/model.png" alt="" class="model1" align="center">
+                        </div>
+                        <div class="col-md-3">
+                            <p class="power">{{car?.power}}c</p><br>
+                            <img src="{{path}}/power.png" alt="" class="image_power" align="center">
+                        </div>
+                        <div class="col-md-3">
+                            <p class="seats">{{car?.seats}}cc</p><br>
+                            <img src="{{path}}/seats.png" alt="" class="doors" align="center">
+                        </div>
+                    </div>
+            </div>
+            <div>
+                <img class="temp" src="{{path}}/{{car?.imgUrl}}" alt="">
+            </div>
+            <div  class="footer">
+                <button (click)="onRent(car)" class="btn btn-outline-success btn-block">Rent this Car</button>
+
+            </div>
+        </div>
+        <div *ngIf="(i+1) % 2 === 0" class="w-100"></div>
+    </ng-container>
+</div>

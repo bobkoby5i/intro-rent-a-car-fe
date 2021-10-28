@@ -17,6 +17,7 @@ export class UserService {
   isAdmin = new Subject();
   isAuthenticated = new BehaviorSubject(false);
   selectedCars = new Subject();
+  path_to_images = API_URL + '/tmp'
 
 
   constructor(private http:HttpClient, private router: Router) { 

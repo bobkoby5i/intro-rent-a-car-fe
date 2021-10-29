@@ -1,1 +1,48 @@
-<p>main-page works!</p>
+<mat-card class="rounded-0">
+    <mat-card-content class="container mt-3">
+      <h1  class="text-center">Available vehicles</h1>
+      <app-datepicker></app-datepicker>
+    </mat-card-content>
+  </mat-card>
+  <div class="container mb-3">
+    <h2 class="text-center mt-3" *ngIf="!this.cars">No results</h2>
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-2 g-lg-3 mt-1" *ngIf="this.cars">
+      <ng-container *ngFor="let car of cars; let i = index">
+        <div class="col">
+          <mat-card class="p-0 rounded-0">
+            <img mat-card-image src="{{path}}{{ car.imgUrl }}" alt="{{car.brand}} {{car.model}} - Photo"
+              *ngIf="car.imgUrl">
+            <img mat-card-image src="{{path}}no_photo.png" alt="{{car.brand}} {{car.model}} - No Photo"
+              *ngIf="!car.imgUrl">
+            <mat-card-title class="px-3">{{car.brand}}</mat-card-title>
+            <mat-card-subtitle class="px-3">{{car.model}}</mat-card-subtitle>
+            <mat-card-content class="px-3">
+              <div class="row">
+                <div class="col d-flex align-items-center">
+                  <mat-icon>bolt</mat-icon>
+                  <div class="ms-2">
+                    <h3 matLine class="m-0">Power</h3>
+                    <p matLine class="m-0">
+                      {{car.power}}
+                    </p>
+                  </div>
+                </div>
+                <div class="col d-flex align-items-center">
+                  <mat-icon>chair</mat-icon>
+                  <div class="ms-2">
+                    <h3 matLine class="m-0">Seats</h3>
+                    <p matLine class="m-0">
+                      {{car.seats}}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </mat-card-content>
+            <button class="btn btn-outline-success btn-block"  (click)="onRent(car)" style="width:100%">Rent</button>
+          </mat-card>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+
+  

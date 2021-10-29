@@ -16,6 +16,8 @@ export class UserService {
   tokenTimer: any;
   isAdmin = new Subject();
   isAuthenticated = new BehaviorSubject(false);
+  selectedCars = new Subject();
+  path_to_images = API_URL + '/tmp/'
 
 
   constructor(private http:HttpClient, private router: Router) { 
@@ -72,5 +74,15 @@ export class UserService {
     localStorage.removeAll()
     this.router.navigate(['login'])
   }  
+
+
+  getCars(p_car_from: any, p_car_till:any ) {
+    const data = {
+      car_from: p_car_from, 
+      car_till: p_car_till
+    }
+    console.log("user.service.ts: getCars(" + p_car_from+ "," + p_car_till + ")")
+    return this.http.post(API_URL + '/admin/cars', data);
+  }
 
 }

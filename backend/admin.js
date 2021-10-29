@@ -6,6 +6,7 @@ const multer = require('multer')
 const temp_folder = '/tmp';
 const Car = require('./models/model-car')
 const User = require('./models/model-user')
+const Reservation = require('./models/model-reservation')
 
 
 const storage = multer.diskStorage({
@@ -43,7 +44,7 @@ router.post('/create-car', (req, res, next) => {
         model : req.body.model,
         power : req.body.power,
         seats : req.body.seats,
-        imgUrl: req.body.imgUr
+        imgUrl: req.body.imgUrl
     });   
 
     console.log('POST /api/cars/create-car - received in admin.js ' + 
@@ -67,7 +68,7 @@ router.get('/users', (req, res, next) => {
     // select email, isAdmin from users
     User.find({}, 'email isAdmin').then( users => {   
         if (!users) {
-            res.status(404).json({message: 'GET users - not users'});
+            res.status(404).json({message: 'GET users - no users'});
         }
         res.status(200).json(users);
     }).catch(error => {
@@ -82,7 +83,7 @@ router.delete('/delete-user/:id', (req, res, next) => {
     User.deleteOne({_id:user_id}).then(response => {
         User.find({}, 'email isAdmin').then( users => {   
             if (!users) {
-                res.status(404).json({message: 'GET users - not users'});
+                res.status(404).json({message: 'GET users - no users'});
             }
             res.status(200).json(users);
         }).catch(error => {console.log(error)})
@@ -96,7 +97,7 @@ router.patch('/make-admin/:id', (req, res, next) => {
     User.updateOne({_id:user_id},{$set: {isAdmin:p_isAdmin}}, {new: true}).then(response => {
         User.find({}, 'email isAdmin').then( users => {   
             if (!users) {
-                res.status(404).json({message: 'GET users - not users'});
+                res.status(404).json({message: 'GET users - no users'});
             }
             res.status(200).json(users);
         }).catch(error => {console.log(error)})
@@ -104,7 +105,25 @@ router.patch('/make-admin/:id', (req, res, next) => {
 })
 
 
-
+router.post('/cars', (req, res) => {
+    console.log(req.body)
+    Reservation.find().or([{$and: [{from: {$lte: req.body.car_from}},{till: {$gte: req.body.car_from}}] },
+            {$and: [{from: {$lte: req.body.car_till}},{till: {$gte: req.body.car_till}}] },
+            {$and: [{from: {$gte: req.body.car_from}},{till: {$lte: req.body.car_till}}] } ]).then(cars => {
+                console.log("find() cars[0] ", cars )
+                if (cars[0] === undefined) {
+                    console.log("undefined ok. then get all cars.... " )
+                    Car.find().then(car =>{
+                        res.status(200).json(car)
+                    }).catch(error => console.log(error))
+                } else {
+                    console.log("cars[0]. then get all cars.... " )
+                    Car.find({_id: {$ne: cars[0].car._id}}).then(cars => {
+                        res.status(200).json(cars)
+                    }).catch(error => console.log(error))
+                }
+            })
+});
 
  
 module.exports = router;

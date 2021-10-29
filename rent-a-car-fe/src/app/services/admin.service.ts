@@ -44,6 +44,8 @@ export class AdminService {
     const userDate = {isAdmin:1}
     return this.http.patch(API_URL + '/api/admin/make-admin/'+id, userDate);
   }
+
+  
   
 
 }

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-main-page',
@@ -7,9 +8,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MainPageComponent implements OnInit {
 
-  constructor() { }
+  cars: any;
+  path: any;
+
+  constructor(private userservice: UserService) { }
 
   ngOnInit(): void {
+    this.userservice.selectedCars.subscribe(res => {
+      this.cars = res;
+      this.path = this.userservice.path_to_images
+    });
+
   }
+
+  onRent(car: any){
+    console.log("onRent()")
+  }  
 
 }

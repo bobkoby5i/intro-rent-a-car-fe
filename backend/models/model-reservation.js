@@ -1,0 +1,12 @@
+const mongoose = require('mongoose')
+const Schema = mongoose.Schema;
+const reservationSchema = mongoose.Schema({
+    car_id: {type: Schema.Types.ObjectId, ref: 'Car'},
+    from: Number,
+    till: Number,
+    fromDate: Date,
+    tillDate: Date
+});
+
+
+module.exports = mongoose.model('Reservation', reservationSchema)

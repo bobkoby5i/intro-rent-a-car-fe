@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import * as moment from 'moment';
 import { UserService } from '../services/user.service';
+
 
 @Component({
   selector: 'app-main-page',
@@ -22,7 +24,15 @@ export class MainPageComponent implements OnInit {
   }
 
   onRent(car: any){
-    console.log("onRent()")
+    const from = localStorage.getItem('car_from');
+    const till = localStorage.getItem('car_till');
+    console.log("onRent() [" + from + "," + till + "]");
+    console.log(car);
+    const fromDate = moment(from).format("YYYY-MM-DD");
+    const tillDate = moment(till).format("YYYY-MM-DD");
+    this.userservice.rentCar(car._id, from, till, fromDate, tillDate).subscribe(res => {
+      console.log(res)
+    })
   }  
 
 }

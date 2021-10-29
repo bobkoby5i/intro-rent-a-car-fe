@@ -125,5 +125,13 @@ router.post('/cars', (req, res) => {
             })
 });
 
- 
+
+router.post('/reserve/:id', (req, res) => {
+    console.log(req.body)
+    const car_id = req.params.id;
+    console.log('admin.js: received POST /api/admin/reserve/'+ car_id );
+    res.status(201).json({messae:"OK"})
+});
+
+
 module.exports = router;

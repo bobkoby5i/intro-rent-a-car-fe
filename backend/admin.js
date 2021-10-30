@@ -129,8 +129,23 @@ router.post('/cars', (req, res) => {
 router.post('/reserve/:id', (req, res) => {
     console.log(req.body)
     const car_id = req.params.id;
+    const reserve = new Reservation ({
+        car_id:   car_id,
+        from:     req.body.from,
+        till:     req.body.till,
+        fromDate: req.body.fromDate,
+        tillDate: req.body.tillDate
+    });
     console.log('admin.js: received POST /api/admin/reserve/'+ car_id );
-    res.status(201).json({messae:"OK"})
+    reserve.save().then(result =>{
+        res.status(201).json({message:"Booked from", 
+                             car_id: car_id,
+                             from:   req.body.from,
+                             till:   req.body.till });
+    }).catch(err => {
+        console.log(err);
+    })
+    
 });
 
 

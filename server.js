@@ -20,6 +20,7 @@ console.log('static content 2: ' + path.join(__dirname, '/rent-a-car-fe/dist'));
 if (process.env.NODE_ENV === "production"){
     console.log('PROD -> server static content under: ' + path.join(__dirname, '/rent-a-car-fe/dist'));
     server.use(express.static(path.join(__dirname, '/rent-a-car-fe/dist')))
+    server.use(express.static(path.join(__dirname, '/assets/icons')))
 } else {
     console.log('NON PROD -> run ng serve');
     server.use(express.static('rent-a-car-fe/dist'))

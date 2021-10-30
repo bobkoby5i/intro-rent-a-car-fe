@@ -3,7 +3,9 @@ const express = require('express')
 const router = express.Router();
 const multer = require('multer')
 //const temp_folder = './tmp/uploads';
-const temp_folder = '/tmp';
+//const temp_folder = '/tmp';
+const temp_folder = './assets/uploads';
+
 const Car = require('./models/model-car')
 const User = require('./models/model-user')
 const Reservation = require('./models/model-reservation')

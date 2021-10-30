@@ -2,6 +2,8 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { AdminService } from '../services/admin.service';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 
 @Component({
@@ -14,6 +16,7 @@ export class AdminUsersComponent implements OnInit {
   displayedColumns: string[] = [  'email', 'isAdmin', 'edit'];
   dataSource = new MatTableDataSource<UserRow>();
   users: any;
+  private unsubscribe = new Subject();
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild('table') table: MatTable<any>;
@@ -22,7 +25,7 @@ export class AdminUsersComponent implements OnInit {
   constructor(private adminservice: AdminService) { }
 
   ngOnInit(): void {
-    this.adminservice.getUsers().subscribe(res => {
+    this.adminservice.getUsers().pipe(takeUntil(this.unsubscribe)).subscribe(res => {
       console.log(res);
       const ELEMENT_DATA: UserRow[] = [];
       this.users = res;
@@ -42,7 +45,7 @@ export class AdminUsersComponent implements OnInit {
 
   onDelete(element: any): void {
     console.log('onDelete()');
-    this.adminservice.deleteUser(element.id).subscribe(
+    this.adminservice.deleteUser(element.id).pipe(takeUntil(this.unsubscribe)).subscribe(
       res => {
         const ELEMENT_DATA: UserRow[] = [];
         this.users = res;
@@ -61,7 +64,7 @@ export class AdminUsersComponent implements OnInit {
 
   onAdmin(element: any): void {
     console.log('onAdmin()');
-    this.adminservice.makeAdmin(element.id).subscribe(
+    this.adminservice.makeAdmin(element.id).pipe(takeUntil(this.unsubscribe)).subscribe(
       res => {
         const ELEMENT_DATA: UserRow[] = [];
         this.users = res;
@@ -78,7 +81,9 @@ export class AdminUsersComponent implements OnInit {
       });
   }  
 
-
+  ngOnDestroy() {
+    this.unsubscribe.unsubscribe();
+  }
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
   }

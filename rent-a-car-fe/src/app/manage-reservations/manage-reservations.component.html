@@ -30,7 +30,11 @@
           <ng-container matColumnDef="cancel">
             <th mat-header-cell *matHeaderCellDef> Action </th>
             <td mat-cell *matCellDef="let element"> 
-              <button (click)="onCancel(element.id)" class="btn btn-outline-danger mr-1">Cancel</button>
+              <button (click)="onCancelReservation(element)" class="btn btn-outline-danger mr-1">Cancel</button>
+              <button (click)="onCancelReservation(element)" mat-icon-button color="warn"  matTooltip="Delete reservation" aria-label="Delete button with a trash icon">
+              <mat-icon>delete</mat-icon>
+          </button>
+
             </td>
           </ng-container>
       

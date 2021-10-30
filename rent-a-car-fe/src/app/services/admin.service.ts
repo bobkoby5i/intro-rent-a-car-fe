@@ -52,6 +52,11 @@ export class AdminService {
     console.log("call GET " + API_URL + '/api/admin/reservations')
     return this.http.get(API_URL + '/api/admin/reservations');    
   }
+
+  cancelReservation(id:string){
+    console.log("cancelReservation:" + id);
+    return this.http.delete(API_URL + '/api/admin/reservations/'+id);
+  }  
   
 
 }

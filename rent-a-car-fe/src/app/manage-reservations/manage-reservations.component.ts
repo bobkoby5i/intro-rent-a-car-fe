@@ -10,7 +10,7 @@ import { AdminService } from '../services/admin.service';
   styleUrls: ['./manage-reservations.component.css']
 })
 export class ManageReservationsComponent implements OnInit {
-  displayedColumns: string[] = ['id', 'car_id', 'reserved_from', 'reserved_till', 'cancel'];
+  displayedColumns: string[] = ['car_id', 'reserved_from', 'reserved_till', 'cancel'];
   //dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
   dataSource = new MatTableDataSource();
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -32,7 +32,7 @@ export class ManageReservationsComponent implements OnInit {
           fromDate   : element.fromDate,
           tillDate   : element.tillDate
         }
-        console.log("adding row" +row);
+        console.log("adding row:" +row);
         ELEMENT_DATA.push(row);
       });
       this.dataSource.data = ELEMENT_DATA;
@@ -47,11 +47,29 @@ export class ManageReservationsComponent implements OnInit {
     this.dataSource.paginator = this.paginator;
   }
 
-  onCancelReservation(id: string){
-    console.log("onCancel("+id+")");
-  }  
-
+  onCancelReservation(element: any): void {
+    const id = element.id
+    console.log("onCancelReservation("+id+")");
+    this.adminservice.cancelReservation(id).subscribe(res => {
+        console.log("onCancelReservation() - canceled.");
+        const ELEMENT_DATA: ReservationRow[] = [];
+        this.reservations = res;
+        this.reservations.forEach((reservation: Reservation) => {
+          const row: ReservationRow = {
+            id         : reservation._id,
+            car_id     : reservation.car_id,
+            fromDate   : reservation.fromDate,
+            tillDate   : reservation.tillDate
+          }
+          console.log("adding row:" +row);
+          ELEMENT_DATA.push(row);
+        });
+        this.dataSource.data = ELEMENT_DATA;
+        this.dataSource.paginator = this.paginator;
+    })
+  }
 }
+
 
 //record in mat table 
 export interface ReservationRow {

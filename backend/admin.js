@@ -163,4 +163,21 @@ router.get('/reservations', (req, res, next) => {
 })
 
 
+router.delete('/reservations/:id', (req, res, next) => {
+    const reservation_id = req.params.id
+    console.log('admin.js: received DELETE /api/admin/reservations/'+ reservation_id );
+    //res.status(200).json({id:user_id});
+    Reservation.deleteOne({_id:reservation_id}).then(response => {
+        //res.status(200).json(response);
+        Reservation.find({}, '_id car_id fromDate tillDate').then( reservations => {   
+            if (!reservations) {
+                res.status(200).json([]);
+            }
+            res.status(200).json(reservations);
+        }).catch(error => {console.log(error)})
+    }).catch(error => {console.log(error)})
+})
+
+
+
 module.exports = router;

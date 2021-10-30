@@ -1,7 +1,9 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import {MatTable, MatTableDataSource} from '@angular/material/table'
 import {MatPaginator} from '@angular/material/paginator'
 import { AdminService } from '../services/admin.service';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 
 @Component({
@@ -9,19 +11,25 @@ import { AdminService } from '../services/admin.service';
   templateUrl: './manage-reservations.component.html',
   styleUrls: ['./manage-reservations.component.css']
 })
-export class ManageReservationsComponent implements OnInit {
+export class ManageReservationsComponent implements OnInit, OnDestroy  {
   displayedColumns: string[] = ['car_id', 'reserved_from', 'reserved_till', 'cancel'];
   //dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
   dataSource = new MatTableDataSource();
+  private unsubscribe = new Subject();
+
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild('table') table: MatTable<any>;  reservations: any;
 
   constructor(private adminservice: AdminService) { }
   
+  ngOnDestroy() {
+    this.unsubscribe.unsubscribe();
+  }
+
 
   ngOnInit(): void {
 
-    this.adminservice.getReservatonions().subscribe(res => {
+    this.adminservice.getReservatonions().pipe(takeUntil(this.unsubscribe)).subscribe(res => {
       console.log("ngOnInit() - get reservations");
       const ELEMENT_DATA: ReservationRow[] = [];
       this.reservations = res;
@@ -50,7 +58,7 @@ export class ManageReservationsComponent implements OnInit {
   onCancelReservation(element: any): void {
     const id = element.id
     console.log("onCancelReservation("+id+")");
-    this.adminservice.cancelReservation(id).subscribe(res => {
+    this.adminservice.cancelReservation(id).pipe(takeUntil(this.unsubscribe)).subscribe(res => {
         console.log("onCancelReservation() - canceled.");
         const ELEMENT_DATA: ReservationRow[] = [];
         this.reservations = res;

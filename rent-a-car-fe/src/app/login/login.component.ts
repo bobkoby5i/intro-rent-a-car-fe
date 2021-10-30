@@ -1,7 +1,9 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnDestroy, OnInit } from "@angular/core";
 import { Router } from '@angular/router';
 import { NgForm } from "@angular/forms";
 import { UserService } from '../services/user.service'
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 
 @Component ({
@@ -10,9 +12,11 @@ import { UserService } from '../services/user.service'
     styleUrls: ['./login.component.css']
 })
 
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
 
+    private unsubscribe = new Subject();
     token: any;
+
 
     constructor(private userservice: UserService, private router: Router) { }
         
@@ -20,7 +24,7 @@ onLogin(loginform: NgForm){
     console.log(loginform.value.email)
     const email = loginform.value.email;
     const pass = loginform.value.password;
-    this.userservice.userLogin(email, pass).subscribe(res =>{
+    this.userservice.userLogin(email, pass).pipe(takeUntil(this.unsubscribe)).subscribe(res =>{
         console.log(res);
         const isAdmin = res.admin;
         const token = res.token;
@@ -54,6 +58,11 @@ autoAuthUser(){
 
 ngOnInit(): void {
 }
+
+ 
+ngOnDestroy() {
+    this.unsubscribe.unsubscribe();
+  }
 
 
 }

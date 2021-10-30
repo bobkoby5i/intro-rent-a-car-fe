@@ -23,6 +23,7 @@ if (process.env.NODE_ENV === "production"){
 } else {
     console.log('NON PROD -> run ng serve');
     server.use(express.static('rent-a-car-fe/dist'))
+    server.use('/icons',express.static('assets/icons'))
 }
 
 

@@ -31,6 +31,8 @@ export class AdminService {
   }
 
   getUsers(){
+    console.log("admin.service.ts: getReservatonions()")
+    console.log("call GET " + API_URL + '/api/admin/users')
     return this.http.get(API_URL + '/api/admin/users');
   }
 
@@ -45,7 +47,11 @@ export class AdminService {
     return this.http.patch(API_URL + '/api/admin/make-admin/'+id, userDate);
   }
 
-  
+  getReservatonions() {
+    console.log("admin.service.ts: getReservatonions()")
+    console.log("call GET " + API_URL + '/api/admin/reservations')
+    return this.http.get(API_URL + '/api/admin/reservations');    
+  }
   
 
 }

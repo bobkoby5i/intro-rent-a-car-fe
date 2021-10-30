@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import {MatTableDataSource} from '@angular/material/table'
+import {MatTable, MatTableDataSource} from '@angular/material/table'
 import {MatPaginator} from '@angular/material/paginator'
+import { AdminService } from '../services/admin.service';
 
 
 @Component({
@@ -9,21 +10,67 @@ import {MatPaginator} from '@angular/material/paginator'
   styleUrls: ['./manage-reservations.component.css']
 })
 export class ManageReservationsComponent implements OnInit {
-  displayedColumns: string[] = ['car_id', 'reserved_from', 'reserved_till', 'cancel'];
-  dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
+  displayedColumns: string[] = ['id', 'car_id', 'reserved_from', 'reserved_till', 'cancel'];
+  //dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
+  dataSource = new MatTableDataSource();
   @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild('table') table: MatTable<any>;  reservations: any;
 
-  constructor() { }
+  constructor(private adminservice: AdminService) { }
+  
 
   ngOnInit(): void {
 
+    this.adminservice.getReservatonions().subscribe(res => {
+      console.log("ngOnInit() - get reservations");
+      const ELEMENT_DATA: ReservationRow[] = [];
+      this.reservations = res;
+      this.reservations.forEach((element: Reservation) => {
+        const row: ReservationRow = {
+          id         : element._id,
+          car_id     : element.car_id,
+          fromDate   : element.fromDate,
+          tillDate   : element.tillDate
+        }
+        console.log("adding row" +row);
+        ELEMENT_DATA.push(row);
+      });
+      this.dataSource.data = ELEMENT_DATA;
+      console.log(ELEMENT_DATA);
+      this.dataSource.paginator = this.paginator;
+    });    
+ 
   }
 
   ngAfterViewInit(){
+    console.log("ngAfterViewInit() ");
     this.dataSource.paginator = this.paginator;
   }
 
+  onCancelReservation(id: string){
+    console.log("onCancel("+id+")");
+  }  
+
 }
+
+//record in mat table 
+export interface ReservationRow {
+  id: string;
+  car_id: string;
+  fromDate: Date;
+  tillDate: Date;
+}
+
+//record from mongo 
+export interface Reservation {
+  _id: string;
+  car_id: string;
+  from: number;
+  till: number;
+  fromDate: Date;
+  tillDate: Date;
+}
+
 
 
 export interface PeriodicElement {

@@ -149,4 +149,18 @@ router.post('/reserve/:id', (req, res) => {
 });
 
 
+router.get('/reservations', (req, res, next) => {
+    console.log('admin.js: received GET /api/admin/reservations' );
+    // select email, isAdmin from users
+    Reservation.find({}, '_id car_id fromDate tillDate').then( reservations => {   
+        if (!reservations) {
+            res.status(200).json([]);
+        }
+        res.status(200).json(reservations);
+    }).catch(error => {
+        console.log(error);
+    })
+})
+
+
 module.exports = router;

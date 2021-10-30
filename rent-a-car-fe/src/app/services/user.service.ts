@@ -5,6 +5,7 @@ import { environment } from '../../environments/environment';
 import { BehaviorSubject, Subject } from 'rxjs';
  
 let API_URL = environment.baseUrlBe + "/api";
+let BE_URL = environment.baseUrlBe;
 let _baseUrlFe = environment.baseUrlFe;  
 
 
@@ -17,7 +18,8 @@ export class UserService {
   isAdmin = new Subject();
   isAuthenticated = new BehaviorSubject(false);
   selectedCars = new Subject();
-  path_to_images = API_URL + '/tmp/'
+  //path_to_images = API_URL + '/tmp/' // works
+  path_to_images = BE_URL + '/uploads/'
 
 
   constructor(private http:HttpClient, private router: Router) { 

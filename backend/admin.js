@@ -2,9 +2,9 @@
 const express = require('express')
 const router = express.Router();
 const multer = require('multer')
-//const temp_folder = './tmp/uploads';
-//const temp_folder = '/tmp';
-const temp_folder = './assets/uploads';
+//const temp_folder = './tmp/uploads';  // tmo excluded from git - works
+//const temp_folder = '/tmp';           // works on c:/tmp
+const temp_folder = './assets/uploads'; // works relative this is folder which is pushed to repo and heroku
 
 const Car = require('./models/model-car')
 const User = require('./models/model-user')

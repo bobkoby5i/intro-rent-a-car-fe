@@ -85,4 +85,16 @@ export class UserService {
     return this.http.post(API_URL + '/admin/cars', data);
   }
 
+  rentCar(id: any, from: any, till: any, fromDate: any, tillDate: any) {
+    console.log("main-page.component.ts rentCar("+id+")");
+    const rentInfo = {
+      id:id,
+      from:from,
+      till:till,
+      fromDate:fromDate,
+      tillDate:tillDate
+    }
+    return this.http.post(API_URL + '/admin/reserve/' + id, rentInfo);
+  }
+
 }

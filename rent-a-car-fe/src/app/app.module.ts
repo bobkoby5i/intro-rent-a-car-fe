@@ -9,6 +9,7 @@ import { MatCardModule } from '@angular/material/card';
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RegisterComponent } from './register/register.component';
+import { DialogOverviewExampleDialog } from './main-page/main-page.component';
 import { RouterModule } from '@angular/router';
 import { NavbarComponent } from './navbar/navbar.component';
 
@@ -28,6 +29,7 @@ import { UserService } from './services/user.service'
 import { AdminService } from './services/admin.service'
 import { HttpClientModule } from '@angular/common/http';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker'
+import {  MatDialogModule } from '@angular/material/dialog';
 
 
 
@@ -43,12 +45,14 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker'
     CreateCarComponent,
     MainPageComponent,
     DatepickerComponent,
-    AdminUsersComponent
-  ],
+    AdminUsersComponent, 
+    DialogOverviewExampleDialog,
+  ],entryComponents: [DialogOverviewExampleDialog],
   imports: [
     BsDatepickerModule.forRoot(),
     BrowserAnimationsModule, 
     HttpClientModule,
+    MatDialogModule,
     BrowserModule,
     MatFormFieldModule,
     FormsModule,

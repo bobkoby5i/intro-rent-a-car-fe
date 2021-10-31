@@ -16,7 +16,7 @@ const mongo_uri = process.env.MONGO_RENT_A_CAR_URI || "mongodb://localhost:27017
 //     }
 // })
 
-mongoose.connect(mongo_uri, {useNewUrlParser: true}).then(() => {
+mongoose.connect(mongo_uri, {useNewUrlParser: true,  useUnifiedTopology: true }).then(() => {
     console.log('Connected to mongodb')
 }).catch(err => console.log(err))
 
@@ -37,8 +37,10 @@ app.get('/',(req, res,next) => {
 
 const userRoutes = require('./user'); //reference to ./user.js
 const adminRoutes = require('./admin'); //reference to ./admin.js
+const photoRoutes = require('./photo-load'); //reference to ./user.js
 app.use('/user', userRoutes)
 app.use('/admin', adminRoutes)
+app.use('/photo', photoRoutes)
 
 
 module.exports = app;

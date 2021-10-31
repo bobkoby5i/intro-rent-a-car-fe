@@ -36,6 +36,7 @@ export class AdminService {
     return this.http.get(API_URL + '/api/admin/users');
   }
 
+
   deleteUser(id:string){
     console.log("deleteUser:" + id);
     return this.http.delete(API_URL + '/api/admin/delete-user/'+id);
@@ -46,6 +47,18 @@ export class AdminService {
     const userDate = {isAdmin:1}
     return this.http.patch(API_URL + '/api/admin/make-admin/'+id, userDate);
   }
+
+  getCars(){
+    console.log("admin.service.ts: getCars()")
+    console.log("call GET " + API_URL + '/api/admin/cars')
+    return this.http.get(API_URL + '/api/admin/cars');
+  }
+
+  deleteCar(id:string){
+    console.log("deleteCar:" + id);
+    return this.http.delete(API_URL + '/api/admin/cars/'+ id);
+  }
+
 
   getReservatonions() {
     console.log("admin.service.ts: getReservatonions()")

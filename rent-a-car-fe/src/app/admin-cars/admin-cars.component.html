@@ -1,0 +1,82 @@
+<div style="height: calc(100vh - 50px)">
+    <div class="mat-elevation-z8">
+      <table mat-table [dataSource]="dataSource">
+  
+        <!-- Name Column -->
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef> id </th>
+          <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+        </ng-container>
+          
+    
+        <!-- Name Column -->
+        <ng-container matColumnDef="brand">
+          <th mat-header-cell *matHeaderCellDef> Brand </th>
+          <td mat-cell *matCellDef="let element"> {{element.brand}} </td>
+        </ng-container>
+    
+        <!-- Weight Column -->
+        <ng-container matColumnDef="model">
+          <th mat-header-cell *matHeaderCellDef> Model </th>
+          <td mat-cell *matCellDef="let element"> {{element.model}} </td>
+        </ng-container>
+  
+        <!-- Weight Column -->
+        <ng-container matColumnDef="power">
+            <th mat-header-cell *matHeaderCellDef> Engine </th>
+            <td mat-cell *matCellDef="let element"> {{element.power}} </td>
+        </ng-container>
+
+        <!-- Weight Column -->
+        <ng-container matColumnDef="seats">
+            <th mat-header-cell *matHeaderCellDef> Seats </th>
+            <td mat-cell *matCellDef="let element"> {{element.seats}} </td>
+        </ng-container>
+
+        <!-- Weight Column -->
+        <ng-container matColumnDef="imagename">
+            <th mat-header-cell *matHeaderCellDef> Imege </th>
+            <td mat-cell *matCellDef="let element"> {{element.imgName}} </td>
+        </ng-container>
+
+        <!-- Weight Column -->
+        <ng-container matColumnDef="imgUrl1">
+            <th mat-header-cell *matHeaderCellDef> Uploads </th>
+            <td mat-cell *matCellDef="let element"> 
+                <img src="{{element.imgUrl1}}" alt="{{element.brand}} {{element.model}} - Photo" *ngIf="element.imgUrl1">
+                </td>
+            </ng-container>
+
+        <!-- Weight Column -->
+        <ng-container matColumnDef="imgUrl2">
+            <th mat-header-cell *matHeaderCellDef> Mongo </th>
+            <td mat-cell *matCellDef="let element"> 
+            <img src="{{element.imgUrl2}}" alt="{{element.brand}} {{element.model}} - Photo" *ngIf="element.imgUrl2">
+            </td>
+        </ng-container>
+        
+
+        <!-- Weight Column -->
+        <ng-container matColumnDef="action">
+          <th mat-header-cell *matHeaderCellDef> Actions </th>
+          <td mat-cell *matCellDef="let element">  
+              <button (click)="onDelete(element)" mat-icon-button color="warn"  matTooltip="Delete reservation" aria-label="Delete button with a trash icon">
+                <mat-icon>delete</mat-icon>
+              </button>              
+          </td>
+        </ng-container>
+          
+    
+    
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+    
+      <mat-paginator [pageSizeOptions]="[5, 10, 20]"
+                     showFirstLastButtons 
+                     aria-label="Select page of periodic elements">
+      </mat-paginator>
+    </div>
+   
+  </div>
+  

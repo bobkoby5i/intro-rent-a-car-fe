@@ -13,12 +13,12 @@ const Reservation = require('./models/model-reservation')
 
 const storage = multer.diskStorage({
     destination: function(req, file, cb){
-        console.log("destination  : " + temp_folder);
+        //console.log("destination  : " + temp_folder);
         cb(null, temp_folder);
     },
     filename: function (req, file, cb){
-        console.log("filename tmp : " + "xxx");
-        console.log("filename     : " + file.originalname);
+        //console.log("filename tmp : " + "xxx");
+        //console.log("filename     : " + file.originalname);
         cb(null, file.originalname)
     }
 })
@@ -31,7 +31,7 @@ const upload = multer({
 router.post('/save-image', upload.single('file'), (req, res) => {
 
     console.log('admin.js: received POST /api/admin/save-image' );
-    res.status(201).json({message: 'Image save received not saved  - SUCCESS.'});
+    res.status(201).json({message: 'Image save received  saved  - SUCCESS.'});
 })
 
 router.post('/create-car', (req, res, next) => {
@@ -77,6 +77,35 @@ router.get('/users', (req, res, next) => {
         console.log(error);
     })
 })
+
+router.get('/cars', (req, res, next) => {
+    console.log('admin.js: received GET /api/admin/cars' );
+    // select * from acars
+    Car.find({}).then( cars => {   
+        if (!cars) {
+            res.status(404).json({message: 'GET users - no cars'});
+        }
+        res.status(200).json(cars);
+    }).catch(error => {
+        console.log(error);
+    })
+})
+
+
+router.delete('/cars/:id', (req, res, next) => {
+    const car_id = req.params.id
+    console.log('admin.js: received DELETE /api/admin/cars/'+ car_id );
+    //res.status(200).json({id:user_id});
+    Car.deleteOne({_id:car_id}).then(response => {
+        Car.find({}, ).then( cars => {   
+            if (!cars) {
+                res.status(404).json({message: 'No cars'});
+            }
+            res.status(200).json(cars);
+        }).catch(error => {console.log(error)})
+    }).catch(error => {console.log(error)})
+})
+
 
 router.delete('/delete-user/:id', (req, res, next) => {
     const user_id = req.params.id

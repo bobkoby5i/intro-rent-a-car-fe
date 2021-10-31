@@ -13,12 +13,12 @@ const Reservation = require('./models/model-reservation')
 
 const storage = multer.diskStorage({
     destination: function(req, file, cb){
-        console.log("destination  : " + temp_folder);
+        //console.log("destination  : " + temp_folder);
         cb(null, temp_folder);
     },
     filename: function (req, file, cb){
-        console.log("filename tmp : " + "xxx");
-        console.log("filename     : " + file.originalname);
+        //console.log("filename tmp : " + "xxx");
+        //console.log("filename     : " + file.originalname);
         cb(null, file.originalname)
     }
 })
@@ -31,7 +31,7 @@ const upload = multer({
 router.post('/save-image', upload.single('file'), (req, res) => {
 
     console.log('admin.js: received POST /api/admin/save-image' );
-    res.status(201).json({message: 'Image save received not saved  - SUCCESS.'});
+    res.status(201).json({message: 'Image save received  saved  - SUCCESS.'});
 })
 
 router.post('/create-car', (req, res, next) => {

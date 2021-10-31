@@ -48,7 +48,7 @@ conn.once("open", function () {
 
 const file_filter = async (req, file, cb) => {
     PHOTO_STORED_BEFORE = false
-    const match = ["image/png"];
+    const match = ["image/png", "image/jpeg"];
     console.log(file.originalname);
     if (match.indexOf(file.mimetype) === -1) {
         console.log("file type not supported: " + file.mimetype);
@@ -68,7 +68,7 @@ const file_filter = async (req, file, cb) => {
                 console.log("SUCH FILE ALREADY EXISTS");
                 console.log(result)
                 PHOTO_STORED_BEFORE = true
-                PHOTO_STORED_BEFORE_URL =  `${API_URL}/${file.originalname}`
+                PHOTO_STORED_BEFORE_URL =  `${API_URL}/photo/${file.originalname}`
                 console.log("DO NOT STORE")
                 cb(null,false)    
             }
@@ -105,7 +105,7 @@ router.post("/upload", gfs_upload.single("file"), (req, res) => {
         console.log("FILE STORED")
         console.log(req.file)
         console.log(req.file.filename)
-        const imgUrl = `${API_URL}/${req.file.filename}`;
+        const imgUrl = `${API_URL}/photo/${req.file.filename}`;
         console.log(imgUrl);
         const car = new Car({
             _id: new mongoose.Types.ObjectId(),
@@ -128,7 +128,7 @@ router.get("/:filename", async (req, res) => {
     try {
         const file = await gfs.files.findOne({ filename: req.params.filename });
         console.log(file)
-        console.log(gfs)
+        //console.log(gfs)
         const readStream = gfs.createReadStream(file.filename);
         //const readStream = gfs.createReadStream({_id:  mongoose.Types.ObjectId("617dfc7b39ed97ca4f822597") });
         readStream.on('error', function (err) {

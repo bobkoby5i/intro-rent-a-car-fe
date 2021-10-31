@@ -19,9 +19,15 @@
 <mat-sidenav-container>
     <mat-sidenav #sidenav>
         <mat-nav-list>
+            <a (click)="sidenav.toggle()" mat-list-item  routerLink="/main">
+            <mat-icon>home</mat-icon>
+            Home
+        </a>
+        </mat-nav-list>        
+        <mat-nav-list>
             <a (click)="sidenav.toggle()" mat-list-item routerLink="/manage">
             <mat-icon>calendar_today</mat-icon>
-            Manage Reservations
+            Reservations
         </a>
         </mat-nav-list>
         <mat-nav-list>
@@ -33,13 +39,13 @@
         <mat-nav-list>
             <a (click)="sidenav.toggle()" mat-list-item  routerLink="/users">
             <mat-icon>person_add_disabled</mat-icon>
-            My User
+            Users
         </a>
         </mat-nav-list>        
         <mat-nav-list>
-            <a (click)="sidenav.toggle()" mat-list-item  routerLink="/main">
-            <mat-icon>home</mat-icon>
-            Home
+            <a (click)="sidenav.toggle()" mat-list-item  routerLink="/cars">
+            <mat-icon>drive_eta</mat-icon>
+            Cars
         </a>
         </mat-nav-list>        
     </mat-sidenav>

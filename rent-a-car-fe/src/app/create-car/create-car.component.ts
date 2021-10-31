@@ -37,7 +37,7 @@ export class CreateCarComponent implements OnInit, OnDestroy {
     console.log(this.fd)
     
     this.http.post(BE_URL + '/api/admin/save-image',this.fd).pipe(takeUntil(this.unsubscribe)).subscribe(res => console.log(res))
-    this.http.post('http://localhost:8080/file/upload',this.fd).pipe(takeUntil(this.unsubscribe)).subscribe(res => console.log(res))
+    this.http.post(BE_URL + '/api/photo/upload',this.fd).pipe(takeUntil(this.unsubscribe)).subscribe(res => console.log(res))
   }
 
   ngOnDestroy() {

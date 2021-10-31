@@ -30,6 +30,7 @@ import { AdminService } from './services/admin.service'
 import { HttpClientModule } from '@angular/common/http';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker'
 import {  MatDialogModule } from '@angular/material/dialog';
+import { AdminCarsComponent } from './admin-cars/admin-cars.component';
 
 
 
@@ -46,7 +47,8 @@ import {  MatDialogModule } from '@angular/material/dialog';
     MainPageComponent,
     DatepickerComponent,
     AdminUsersComponent, 
-    DialogOverviewExampleDialog,
+    DialogOverviewExampleDialog, 
+    AdminCarsComponent,
   ],entryComponents: [DialogOverviewExampleDialog],
   imports: [
     BsDatepickerModule.forRoot(),
@@ -74,6 +76,7 @@ import {  MatDialogModule } from '@angular/material/dialog';
       {path: 'create-car', component: CreateCarComponent},
       {path: 'manage', component: ManageReservationsComponent},
       {path: 'users', component: AdminUsersComponent},
+      {path: 'cars', component: AdminCarsComponent},
     ])
   ],
   providers: [UserService, LoginComponent, AdminService],

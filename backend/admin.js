@@ -78,6 +78,35 @@ router.get('/users', (req, res, next) => {
     })
 })
 
+router.get('/cars', (req, res, next) => {
+    console.log('admin.js: received GET /api/admin/cars' );
+    // select * from acars
+    Car.find({}).then( cars => {   
+        if (!cars) {
+            res.status(404).json({message: 'GET users - no cars'});
+        }
+        res.status(200).json(cars);
+    }).catch(error => {
+        console.log(error);
+    })
+})
+
+
+router.delete('/cars/:id', (req, res, next) => {
+    const car_id = req.params.id
+    console.log('admin.js: received DELETE /api/admin/cars/'+ car_id );
+    //res.status(200).json({id:user_id});
+    Car.deleteOne({_id:car_id}).then(response => {
+        Car.find({}, ).then( cars => {   
+            if (!cars) {
+                res.status(404).json({message: 'No cars'});
+            }
+            res.status(200).json(cars);
+        }).catch(error => {console.log(error)})
+    }).catch(error => {console.log(error)})
+})
+
+
 router.delete('/delete-user/:id', (req, res, next) => {
     const user_id = req.params.id
     console.log('admin.js: received DELETE /api/admin/delete-user/'+ user_id );

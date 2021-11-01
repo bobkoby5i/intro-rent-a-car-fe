@@ -18,7 +18,6 @@ router.post('/register', async (req, res, next) => {
     const newUser = new User({
         email: req.body.email,
         password: hash,
-        isAdmin: 0
     });       
 
     User.findOne({email: req.body.email}).then(registeredUser => {
@@ -29,8 +28,6 @@ router.post('/register', async (req, res, next) => {
             console.log('saving user in mongo...');
             newUser.save().then(result => {
                 console.log('Save completed.');
-                let token = jwt.sign(payload, 'my_encryption_password')
-                res.status(200).send({token}) 
                 res.status(201).json({message:'Register new user - SUCCESS'});
             }).catch(err => { console.log(err);}) // save error catch
         }

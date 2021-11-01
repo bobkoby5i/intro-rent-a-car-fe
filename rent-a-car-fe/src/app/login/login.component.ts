@@ -15,15 +15,16 @@ import { takeUntil } from 'rxjs/operators';
 export class LoginComponent implements OnInit, OnDestroy {
 
     private unsubscribe = new Subject();
+    loginUserData = {email:"", password:""}    
     token: any;
 
 
     constructor(private userservice: UserService, private router: Router) { }
         
-onLogin(loginform: NgForm){
-    console.log(loginform.value.email)
-    const email = loginform.value.email;
-    const pass = loginform.value.password;
+onLogin(){
+    console.log(this.loginUserData)
+    const email = this.loginUserData.email;
+    const pass  = this.loginUserData.password;
     this.userservice.userLogin(email, pass).pipe(takeUntil(this.unsubscribe)).subscribe(res =>{
         console.log(res);
         const isAdmin = res.admin;

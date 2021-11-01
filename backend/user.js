@@ -10,8 +10,8 @@ const JWT_EXPIRES_IN          = 3600
 
 
 // added async to wait for bcrypt. otherwise then needed like before.
-// this is option with await. 
-// and genarate token
+// this is an option with await.
+// and generate token
 router.post('/register', async (req, res, next) => {
     console.log('POST /api/user/register - received in user.js' );
     console.log('user: ' + req.body.email);
@@ -32,25 +32,26 @@ router.post('/register', async (req, res, next) => {
             console.log('saving user in mongo...');
             newUser.save().then(savedUser => {
                 console.log('Save completed.');
+                // prepare payload    
                 let isAdmin = 0;
-                let payload = {                                         // prepare payload
+                let payload = {                                         
                     subject    : savedUser._id,
                     userId     : savedUser._id,
                     email      : savedUser.email,
                     isAdmin    : isAdmin
-
                 }           
-                const token = jwt.sign(payload,JWT_ENCRIPTION_PASSWORD, {expiresIn:JWT_EXPIRES_IN}); // symetric encription
+                // symmetric encryption
+                const token = jwt.sign(payload,JWT_ENCRIPTION_PASSWORD, {expiresIn:JWT_EXPIRES_IN}); 
                 console.log('token: ' + token);   
-                //res.status(200).send({token})    
-                res.status(200).json({
+                //res.status(200).send({token})   
+
+                const response_body = {
                     token      : token, 
                     expiresIn  : JWT_EXPIRES_IN, 
                     email      : savedUser.email,                
                     isAdmin    : isAdmin
-                }) 
-                
-                //res.status(201).json({message:'Register new user - SUCCESS'});
+                }
+                res.status(200).json(response_body)                 
             }).catch(err => { console.log(err);}) // save error catch
         }
     }).catch(err => { console.log(err);}) // find one error catch
@@ -218,13 +219,13 @@ router.post('/login', (req, res, next) => {
             const token = jwt.sign(payload, JWT_ENCRIPTION_PASSWORD, {expiresIn:JWT_EXPIRES_IN}); // symetric encription
             console.log('token: ' + token);
 
-            const response = {
+            const response_body = {
                 token      : token, 
                 expiresIn  : JWT_EXPIRES_IN, 
                 email      : fetcheduser.email,                
                 isAdmin    : fetcheduser.isAdmin
             }
-            res.status(200).json(response) 
+            res.status(200).json(response_body) 
         }).catch(err =>{console.log(err)}); // bcrypt() error catch
     }).catch(err =>{console.log(err)}); // findOne() error catch
 });

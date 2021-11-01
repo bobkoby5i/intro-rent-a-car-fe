@@ -1,0 +1,24 @@
+<div style="height: calc(100vh - 50px); overflow: hidden">
+<mat-card>
+
+<form (submit)="onLogin(loginform)" #loginform="ngForm">
+<mat-form-field appearance="fill">
+    <input matInput placeholder="Email"
+            name="email"
+            required
+            email
+            #emailInput="ngModel"
+            ngModel>
+    <mat-error *ngIf="emailInput.invalid">Please give a valid email</mat-error>
+</mat-form-field>
+
+<mat-form-field appearance="fill">
+    <input matInput placeholder="Password"
+    name="password"
+    ngModel>
+</mat-form-field>
+
+<button class="btn btn-primary" type="submit">Login</button>
+</form>
+</mat-card>
+</div>

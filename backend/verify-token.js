@@ -10,7 +10,7 @@ function verifyToken(req, res, next) {
     if (token === 'null') {
         return res.status(401).send("Unauthorized request");
     }
-    let payload = jwt.verify(token, JWT_ENCRIPTION_PASSWORD, function(err, decoded) {
+    let payload1 = jwt.verify(token, JWT_ENCRIPTION_PASSWORD, function(err, payload) {
         if (err) {
             return res.status(401).send("Unauthorized request");  
         } else {

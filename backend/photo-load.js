@@ -125,9 +125,10 @@ router.post("/upload", verifyToken, gfs_upload.single("file"), (req, res) => {
 });
 
 
-router.get("/:filename", verifyToken, async (req, res) => {
+router.get("/:filename", async (req, res) => {
     console.log("Fetch from mongo filename: " + req.params.filename)
     try {
+
         const file = await gfs.files.findOne({ filename: req.params.filename });
         console.log(file)
         //console.log(gfs)
@@ -145,7 +146,8 @@ router.get("/:filename", verifyToken, async (req, res) => {
 });
 
 
-router.delete("/:filename", verifyToken, async (req, res) => {
+router.delete("/:filename", async (req, res) => {
+    verifyToken    
     try {
         await gfs.files.deleteOne({ filename: req.params.filename });
         res.send("success");

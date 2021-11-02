@@ -87,7 +87,7 @@ export class AdminCarsComponent implements OnInit {
       err => {
         if (err instanceof HttpErrorResponse ){
           if (err.status === 401) {
-            this._router.navigate(['/main'])     
+            this._router.navigate(['/login'])     
           }
         }
       }

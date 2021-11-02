@@ -31,6 +31,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker'
 import {  MatDialogModule } from '@angular/material/dialog';
 import { AdminCarsComponent } from './admin-cars/admin-cars.component';
+import { AuthGuard } from './auth.guard';
+import { AppRoutingModule } from './app-routing.module';
 
 
 
@@ -68,18 +70,9 @@ import { AdminCarsComponent } from './admin-cars/admin-cars.component';
     MatCardModule,
     MatTableModule,
     MatPaginatorModule,
-    RouterModule.forRoot([
-      {path: '', component: LoginComponent},
-      {path: 'login', component: LoginComponent},
-      {path: 'register', component: RegisterComponent},
-      {path: 'main', component: MainPageComponent},
-      {path: 'create-car', component: CreateCarComponent},
-      {path: 'manage', component: ManageReservationsComponent},
-      {path: 'users', component: AdminUsersComponent},
-      {path: 'cars', component: AdminCarsComponent},
-    ])
+    AppRoutingModule
   ],
-  providers: [UserService, LoginComponent, AdminService],
+  providers: [UserService, LoginComponent, AdminService, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

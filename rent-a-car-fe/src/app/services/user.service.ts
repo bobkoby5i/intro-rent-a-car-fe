@@ -101,4 +101,10 @@ export class UserService {
     return this.http.post(API_URL + '/admin/reserve/' + id, rentInfo);
   }
 
+  loggedIn(): boolean{
+    return !!localStorage.getItem('token') // true if exis false if not 
+    //return this.isAuthenticated; ????
+
+  }
+
 }

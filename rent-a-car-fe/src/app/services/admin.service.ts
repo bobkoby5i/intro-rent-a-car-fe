@@ -30,6 +30,18 @@ export class AdminService {
     return this.http.post(API_URL + '/api/admin/create-car', carData);
   }
 
+  getCars(){
+    console.log("admin.service.ts: getCars()")
+    console.log("call GET " + API_URL + '/api/admin/cars')
+    return this.http.get(API_URL + '/api/admin/cars');
+  }
+
+  deleteCar(id:string){
+    console.log("deleteCar:" + id);
+    return this.http.delete(API_URL + '/api/admin/cars/'+ id);
+  }
+
+
   getUsers(){
     console.log("admin.service.ts: getReservatonions()")
     console.log("call GET " + API_URL + '/api/admin/users')
@@ -48,16 +60,6 @@ export class AdminService {
     return this.http.patch(API_URL + '/api/admin/make-admin/'+id, userDate);
   }
 
-  getCars(){
-    console.log("admin.service.ts: getCars()")
-    console.log("call GET " + API_URL + '/api/admin/cars')
-    return this.http.get(API_URL + '/api/admin/cars');
-  }
-
-  deleteCar(id:string){
-    console.log("deleteCar:" + id);
-    return this.http.delete(API_URL + '/api/admin/cars/'+ id);
-  }
 
 
   getReservatonions() {

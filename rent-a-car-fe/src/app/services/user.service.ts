@@ -33,22 +33,23 @@ export class UserService {
   createUser(email: string, password: string) {
     console.log("create user " + email)
     const authData = {email: email, password: password};
-    return this.http.post(API_URL + '/user/register', authData);
+    return this.http.post<{email:any, token:string, expiresIn: any, isAdmin:any}>(API_URL + '/user/register', authData);
   }
 
-  userLogin(p_email: string, p_pass: string) {
-    console.log("login user " + p_email)
-    const authData = {email: p_email, password: p_pass};
+  userLogin(authData: any) {
+    console.log("login user " + authData.email)
+    //const authData = {email: p_email, password: p_pass};
     //return this.http.post(API_URL + '/user/login', authData);
-    return this.http.post<{token:string, expiresIn: any, admin:any}>(API_URL + '/user/login', authData);
+    return this.http.post<{email:any, token:string, expiresIn: any, isAdmin:any}>(API_URL + '/user/login', authData);
   }  
 
   setTimer(duration: any) {
-    this.tokenTimer = setTimeout(() => {this.onLougout() }, duration * 1000);
+    this.tokenTimer = setTimeout(() => {this.onLogout() }, duration * 1000);
   }
 
-  saveUserData(token: string, expiration: Date, isAdmin: any) {
+  saveUserData(token: string, expiration: Date, isAdmin: any, email: any) {
       localStorage.setItem('token', token)
+      localStorage.setItem('email', email)
       localStorage.setItem('expiration', expiration.toString())
       localStorage.setItem('isAdmin', isAdmin)
 
@@ -64,16 +65,17 @@ export class UserService {
     return {
       token: token,
       expirationDate: new Date(expiration),
-      isAdmin: isAdmin
+      isAdmin: isAdmin,
+      email: localStorage.getItem('email')
     }
 
 }    
 
-  onLougout() {
+  onLogout() {
     this.isAuthenticated.next(false)
     clearTimeout(this.tokenTimer)
     this.setAmin(0)
-    localStorage.removeAll()
+    localStorage.clear();
     this.router.navigate(['login'])
   }  
 

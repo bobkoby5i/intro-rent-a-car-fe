@@ -6,3 +6,7 @@ mat-card {
 mat-form-field {
     width: 100%;
 }
+
+.pull-right {
+    float: right !important;
+  }

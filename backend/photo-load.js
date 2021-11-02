@@ -5,6 +5,8 @@ const Grid = require("gridfs-stream");
 const multer = require("multer");
 const {GridFsStorage} = require("multer-gridfs-storage");
 const Car = require('./models/model-car')
+const verifyToken = require('./verify-token')
+
 
 const mongo_uri = process.env.MONGO_RENT_A_CAR_URI || "mongodb://localhost:27017/intro-rent-a-car";
 
@@ -90,7 +92,7 @@ const gfs_upload = multer({
 
 
 
-router.post("/upload", gfs_upload.single("file"), (req, res) => {
+router.post("/upload", verifyToken, gfs_upload.single("file"), (req, res) => {
     console.log("upload()")
     console.log(req.body)
     if ((req.file === undefined) && (!PHOTO_STORED_BEFORE)) {
@@ -123,7 +125,7 @@ router.post("/upload", gfs_upload.single("file"), (req, res) => {
 });
 
 
-router.get("/:filename", async (req, res) => {
+router.get("/:filename", verifyToken, async (req, res) => {
     console.log("Fetch from mongo filename: " + req.params.filename)
     try {
         const file = await gfs.files.findOne({ filename: req.params.filename });
@@ -143,7 +145,7 @@ router.get("/:filename", async (req, res) => {
 });
 
 
-router.delete("/:filename", async (req, res) => {
+router.delete("/:filename", verifyToken, async (req, res) => {
     try {
         await gfs.files.deleteOne({ filename: req.params.filename });
         res.send("success");

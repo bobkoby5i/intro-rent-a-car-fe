@@ -9,6 +9,8 @@ const temp_folder = './assets/uploads'; // works relative this is folder which i
 const Car = require('./models/model-car')
 const User = require('./models/model-user')
 const Reservation = require('./models/model-reservation')
+const verifyToken = require('./verify-token')
+
 
 
 const storage = multer.diskStorage({
@@ -28,13 +30,13 @@ const upload = multer({
         storage: storage
 })
  
-router.post('/save-image', upload.single('file'), (req, res) => {
+router.post('/save-image', verifyToken, upload.single('file'), (req, res) => {
 
     console.log('admin.js: received POST /api/admin/save-image' );
     res.status(201).json({message: 'Image save received  saved  - SUCCESS.'});
 })
 
-router.post('/create-car', (req, res, next) => {
+router.post('/create-car', verifyToken, (req, res, next) => {
     const car_brand = req.body.brand;
     const car_model = req.body.model;
     const car_power = req.body.power;
@@ -65,7 +67,7 @@ router.post('/create-car', (req, res, next) => {
     })
 })
 
-router.get('/users', (req, res, next) => {
+router.get('/users', verifyToken, (req, res, next) => {
     console.log('admin.js: received GET /api/admin/users' );
     // select email, isAdmin from users
     User.find({}, 'email isAdmin').then( users => {   
@@ -78,7 +80,7 @@ router.get('/users', (req, res, next) => {
     })
 })
 
-router.get('/cars', (req, res, next) => {
+router.get('/cars', verifyToken, (req, res, next) => {
     console.log('admin.js: received GET /api/admin/cars' );
     // select * from acars
     Car.find({}).then( cars => {   
@@ -92,7 +94,7 @@ router.get('/cars', (req, res, next) => {
 })
 
 
-router.delete('/cars/:id', (req, res, next) => {
+router.delete('/cars/:id', verifyToken, (req, res, next) => {
     const car_id = req.params.id
     console.log('admin.js: received DELETE /api/admin/cars/'+ car_id );
     //res.status(200).json({id:user_id});
@@ -107,7 +109,7 @@ router.delete('/cars/:id', (req, res, next) => {
 })
 
 
-router.delete('/delete-user/:id', (req, res, next) => {
+router.delete('/delete-user/:id', verifyToken, (req, res, next) => {
     const user_id = req.params.id
     console.log('admin.js: received DELETE /api/admin/delete-user/'+ user_id );
     //res.status(200).json({id:user_id});
@@ -121,7 +123,7 @@ router.delete('/delete-user/:id', (req, res, next) => {
     }).catch(error => {console.log(error)})
 })
 
-router.patch('/make-admin/:id', (req, res, next) => {
+router.patch('/make-admin/:id', verifyToken, (req, res, next) => {
     const user_id = req.params.id;
     const p_isAdmin = req.body.isAdmin;
     console.log('admin.js: received PATCH /api/admin/make-admin/'+ user_id );
@@ -136,7 +138,7 @@ router.patch('/make-admin/:id', (req, res, next) => {
 })
 
 
-router.post('/cars', (req, res) => {
+router.post('/cars', verifyToken, (req, res) => {
     console.log(req.body)
     Reservation.find().or([{$and: [{from: {$lte: req.body.car_from}},{till: {$gte: req.body.car_from}}] },
             {$and: [{from: {$lte: req.body.car_till}},{till: {$gte: req.body.car_till}}] },
@@ -157,7 +159,7 @@ router.post('/cars', (req, res) => {
 });
 
 
-router.post('/reserve/:id', (req, res) => {
+router.post('/reserve/:id', verifyToken, (req, res) => {
     console.log(req.body)
     const car_id = req.params.id;
     const reserve = new Reservation ({
@@ -180,7 +182,7 @@ router.post('/reserve/:id', (req, res) => {
 });
 
 
-router.get('/reservations', (req, res, next) => {
+router.get('/reservations', verifyToken, (req, res, next) => {
     console.log('admin.js: received GET /api/admin/reservations' );
     // select email, isAdmin from users
     Reservation.find({}, '_id car_id fromDate tillDate').then( reservations => {   
@@ -194,7 +196,7 @@ router.get('/reservations', (req, res, next) => {
 })
 
 
-router.delete('/reservations/:id', (req, res, next) => {
+router.delete('/reservations/:id', verifyToken, (req, res, next) => {
     const reservation_id = req.params.id
     console.log('admin.js: received DELETE /api/admin/reservations/'+ reservation_id );
     //res.status(200).json({id:user_id});

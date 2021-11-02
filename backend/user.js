@@ -5,7 +5,7 @@ const User = require('./models/model-user')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken');
 
-const JWT_ENCRIPTION_PASSWORD = 'my_encryption_password'
+const JWT_ENCRIPTION_PASSWORD = process.env.JWT_ENCRIPTION_PASSWORD || 'my_encryption_password'
 const JWT_EXPIRES_IN          = 3600
 
 

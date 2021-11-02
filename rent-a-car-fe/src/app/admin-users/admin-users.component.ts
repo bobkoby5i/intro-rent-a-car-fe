@@ -4,6 +4,8 @@ import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { AdminService } from '../services/admin.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { HttpErrorResponse } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -22,25 +24,33 @@ export class AdminUsersComponent implements OnInit {
   @ViewChild('table') table: MatTable<any>;
 
 
-  constructor(private adminservice: AdminService) { }
+  constructor(private adminservice: AdminService, private _router: Router) { }
 
   ngOnInit(): void {
-    this.adminservice.getUsers().pipe(takeUntil(this.unsubscribe)).subscribe(res => {
-      console.log(res);
-      const ELEMENT_DATA: UserRow[] = [];
-      this.users = res;
-      this.users.forEach((element: User) => {
-        const user_row: UserRow = {
-          id: element._id,
-          email:   element.email,
-          isAdmin: element.isAdmin
-        }
-        ELEMENT_DATA.push(user_row);
-      });
-      this.dataSource.data = ELEMENT_DATA;
-      console.log(ELEMENT_DATA);
-    });
-    
+    this.adminservice.getUsers().pipe(takeUntil(this.unsubscribe)).subscribe(
+      res => {
+        console.log(res);
+        const ELEMENT_DATA: UserRow[] = [];
+        this.users = res;
+        this.users.forEach((element: User) => {
+          const user_row: UserRow = {
+            id: element._id,
+            email:   element.email,
+            isAdmin: element.isAdmin
+          }
+          ELEMENT_DATA.push(user_row);
+        });
+        this.dataSource.data = ELEMENT_DATA;
+        console.log(ELEMENT_DATA);
+      },
+      err => {
+        if (err instanceof HttpErrorResponse ){
+          if (err.status === 401) {
+            this._router.navigate(['/login'])     
+          }
+        }    
+      }
+    );
   }
 
   onDelete(element: any): void {
@@ -59,7 +69,15 @@ export class AdminUsersComponent implements OnInit {
         });
         this.dataSource.data = ELEMENT_DATA;
         console.log(ELEMENT_DATA);
-      });
+      },
+      err => {
+        if (err instanceof HttpErrorResponse ){
+          if (err.status === 401) {
+            this._router.navigate(['/login'])     
+          }
+        }      
+      }
+    );
   }  
 
   onAdmin(element: any): void {

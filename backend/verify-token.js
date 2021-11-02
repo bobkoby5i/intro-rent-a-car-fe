@@ -10,13 +10,18 @@ function verifyToken(req, res, next) {
     if (token === 'null') {
         return res.status(401).send("Unauthorized request");
     }
-    let payload = jwt.verify(token, JWT_ENCRIPTION_PASSWORD);
-    if (!payload){
-        return res.status(401).send("Unauthorized request");
-    }
-    req.userId  = payload.userId;
-    req.isAdmin = payload.isAdmin;
-    next();
+    let payload = jwt.verify(token, JWT_ENCRIPTION_PASSWORD, function(err, decoded) {
+        if (err) {
+            return res.status(401).send("Unauthorized request");  
+        } else {
+            if (!payload){
+                return res.status(401).send("Unauthorized request");
+            }
+            req.userId  = payload.userId;
+            req.isAdmin = payload.isAdmin;
+            next();
+        }
+    });
 }
 
 module.exports = verifyToken

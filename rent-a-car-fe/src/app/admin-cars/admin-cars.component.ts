@@ -5,6 +5,8 @@ import { AdminService } from '../services/admin.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
+import { HttpErrorResponse, HttpRequest } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 let API_URL = environment.baseUrlBe;
 let BACKEND_URL = environment.baseUrlBe;  
@@ -25,29 +27,37 @@ export class AdminCarsComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild('table') table: MatTable<any>;
 
-  constructor(private adminservice: AdminService) { }
+  constructor(private adminservice: AdminService, private _router: Router) { }
 
   ngOnInit(): void {
-    this.adminservice.getCars().pipe(takeUntil(this.unsubscribe)).subscribe(res => {
-      console.log(res);
-      this.cars = res;
-      const DATA_ELEMENTS: CarRow[] = [];
-      this.cars.forEach((car: Car) => {
-        const car_row: CarRow = {
-          id      : car._id,
-          brand   : car.brand,
-          model   : car.model,
-          power   : car.power,
-          seats   : car.seats,
-          imgName : car.imgUrl,
-          imgUrl1 : BACKEND_URL + "/uploads/"+ car.imgUrl,
-          imgUrl2 : BACKEND_URL + "/api/photo/"+ car.imgUrl,
-        }
-        DATA_ELEMENTS.push(car_row);
-      });
-      console.log(DATA_ELEMENTS);
-      this.dataSource.data = DATA_ELEMENTS;
-      this.dataSource.paginator = this.paginator;
+    this.adminservice.getCars().pipe(takeUntil(this.unsubscribe)).subscribe(
+      res => {
+        console.log(res);
+        this.cars = res;
+        const DATA_ELEMENTS: CarRow[] = [];
+        this.cars.forEach((car: Car) => {
+          const car_row: CarRow = {
+            id      : car._id,
+            brand   : car.brand,
+            model   : car.model,
+            power   : car.power,
+            seats   : car.seats,
+            imgName : car.imgUrl,
+            imgUrl1 : BACKEND_URL + "/uploads/"+ car.imgUrl,
+            imgUrl2 : BACKEND_URL + "/api/photo/"+ car.imgUrl,
+          }
+          DATA_ELEMENTS.push(car_row);
+        });
+        console.log(DATA_ELEMENTS);
+        this.dataSource.data = DATA_ELEMENTS;
+        this.dataSource.paginator = this.paginator;
+      },
+      err => {
+        if (err instanceof HttpErrorResponse ){
+          if (err.status === 401) {
+            this._router.navigate(['/login'])     
+          }
+      }
     });
   }
 
@@ -73,7 +83,15 @@ export class AdminCarsComponent implements OnInit {
         console.log(DATA_ELEMENTS);
         this.dataSource.data = DATA_ELEMENTS;
         this.dataSource.paginator = this.paginator;
-        });
+      },
+      err => {
+        if (err instanceof HttpErrorResponse ){
+          if (err.status === 401) {
+            this._router.navigate(['/main'])     
+          }
+        }
+      }
+    );
   }  
   
   ngOnDestroy() {

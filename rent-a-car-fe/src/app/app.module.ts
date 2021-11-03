@@ -9,7 +9,8 @@ import { MatCardModule } from '@angular/material/card';
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RegisterComponent } from './register/register.component';
-import { RouterModule } from '@angular/router';
+import { DialogOverviewExampleDialog } from './main-page/main-page.component';
+//import { RouterModule } from '@angular/router';
 import { NavbarComponent } from './navbar/navbar.component';
 
 import {MatToolbarModule} from '@angular/material/toolbar'
@@ -26,7 +27,14 @@ import { DatepickerComponent } from './datepicker/datepicker.component';
 import { AdminUsersComponent } from './admin-users/admin-users.component'
 import { UserService } from './services/user.service'
 import { AdminService } from './services/admin.service'
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker'
+import {  MatDialogModule } from '@angular/material/dialog';
+import { AdminCarsComponent } from './admin-cars/admin-cars.component';
+import { AuthGuard } from './auth.guard';
+import { AppRoutingModule } from './app-routing.module';
+import { TokenInterceptorService } from './services/token-interceptor.service';
+
 
 
 
@@ -41,10 +49,15 @@ import { HttpClientModule } from '@angular/common/http';
     CreateCarComponent,
     MainPageComponent,
     DatepickerComponent,
-    AdminUsersComponent
-  ],
+    AdminUsersComponent, 
+    DialogOverviewExampleDialog, 
+    AdminCarsComponent,
+  ],entryComponents: [DialogOverviewExampleDialog],
   imports: [
+    BsDatepickerModule.forRoot(),
+    BrowserAnimationsModule, 
     HttpClientModule,
+    MatDialogModule,
     BrowserModule,
     MatFormFieldModule,
     FormsModule,
@@ -58,17 +71,15 @@ import { HttpClientModule } from '@angular/common/http';
     MatCardModule,
     MatTableModule,
     MatPaginatorModule,
-    RouterModule.forRoot([
-      {path: '', component: LoginComponent},
-      {path: 'login', component: LoginComponent},
-      {path: 'register', component: RegisterComponent},
-      {path: 'main', component: MainPageComponent},
-      {path: 'create-car', component: CreateCarComponent},
-      {path: 'manage', component: ManageReservationsComponent},
-      {path: 'users', component: AdminUsersComponent},
-    ])
+    AppRoutingModule
   ],
-  providers: [UserService, LoginComponent, AdminService],
+  providers: [UserService, LoginComponent, AdminService, AuthGuard,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptorService, 
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

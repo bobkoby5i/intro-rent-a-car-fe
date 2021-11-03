@@ -28,6 +28,50 @@ export class AdminService {
       imgUrl:   p_filename
     };
     return this.http.post(API_URL + '/api/admin/create-car', carData);
-
   }
+
+  getCars(){
+    console.log("admin.service.ts: getCars()")
+    console.log("call GET " + API_URL + '/api/admin/cars')
+    return this.http.get(API_URL + '/api/admin/cars');
+  }
+
+  deleteCar(id:string){
+    console.log("deleteCar:" + id);
+    return this.http.delete(API_URL + '/api/admin/cars/'+ id);
+  }
+
+
+  getUsers(){
+    console.log("admin.service.ts: getReservatonions()")
+    console.log("call GET " + API_URL + '/api/admin/users')
+    return this.http.get(API_URL + '/api/admin/users');
+  }
+
+
+  deleteUser(id:string){
+    console.log("deleteUser:" + id);
+    return this.http.delete(API_URL + '/api/admin/delete-user/'+id);
+  }
+
+  makeAdmin(id:string){
+    console.log("makeAdmin:" + id);
+    const userDate = {isAdmin:1}
+    return this.http.patch(API_URL + '/api/admin/make-admin/'+id, userDate);
+  }
+
+
+
+  getReservatonions() {
+    console.log("admin.service.ts: getReservatonions()")
+    console.log("call GET " + API_URL + '/api/admin/reservations')
+    return this.http.get(API_URL + '/api/admin/reservations');    
+  }
+
+  cancelReservation(id:string){
+    console.log("cancelReservation:" + id);
+    return this.http.delete(API_URL + '/api/admin/reservations/'+id);
+  }  
+  
+
 }

@@ -1,24 +1,26 @@
 <div style="height: calc(100vh - 50px); overflow: hidden">
-<mat-card>
-
-<form (submit)="onLogin(loginform)" #loginform="ngForm">
-<mat-form-field appearance="fill">
-    <input matInput placeholder="Email"
-            name="email"
-            required
-            email
-            #emailInput="ngModel"
-            ngModel>
-    <mat-error *ngIf="emailInput.invalid">Please give a valid email</mat-error>
-</mat-form-field>
-
-<mat-form-field appearance="fill">
-    <input matInput placeholder="Password"
-    name="password"
-    ngModel>
-</mat-form-field>
-
-<button class="btn btn-primary" type="submit">Login</button>
-</form>
-</mat-card>
+    <div class="row pt-5">
+        <div class="col-md-3 mx-auto">
+            <div class="card rounded-0">
+                <div class="card-header">
+                    <h3 class="mb-0">Login</h3>
+                </div>
+                <div class="card-body">
+                    <form class="form" #loginform="ngForm">
+                        <div class="form-group">
+                            <label for="">Email</label>
+                            <input [(ngModel)]="loginUserData.email" name="email" type="text" class="form-control rounded-1" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="">Password</label>
+                            <input [(ngModel)]="loginUserData.password" name="password" type="password" class="form-control rounded-1" required>
+                        </div>
+                        <div  class="pull-right p-3">
+                        <button (click)="onLogin()" type="button" class="btn btn-success float-right ">Login</button>                
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

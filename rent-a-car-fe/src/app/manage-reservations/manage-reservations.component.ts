@@ -1,6 +1,9 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import {MatTableDataSource} from '@angular/material/table'
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
+import {MatTable, MatTableDataSource} from '@angular/material/table'
 import {MatPaginator} from '@angular/material/paginator'
+import { AdminService } from '../services/admin.service';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 
 @Component({
@@ -8,22 +11,92 @@ import {MatPaginator} from '@angular/material/paginator'
   templateUrl: './manage-reservations.component.html',
   styleUrls: ['./manage-reservations.component.css']
 })
-export class ManageReservationsComponent implements OnInit {
+export class ManageReservationsComponent implements OnInit, OnDestroy  {
   displayedColumns: string[] = ['car_id', 'reserved_from', 'reserved_till', 'cancel'];
-  dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+  //dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
+  dataSource = new MatTableDataSource();
+  private unsubscribe = new Subject();
 
-  constructor() { }
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild('table') table: MatTable<any>;  reservations: any;
+
+  constructor(private adminservice: AdminService) { }
+  
+  ngOnDestroy() {
+    this.unsubscribe.unsubscribe();
+  }
+
 
   ngOnInit(): void {
 
+    this.adminservice.getReservatonions().pipe(takeUntil(this.unsubscribe)).subscribe(res => {
+      console.log("ngOnInit() - get reservations");
+      const ELEMENT_DATA: ReservationRow[] = [];
+      this.reservations = res;
+      this.reservations.forEach((element: Reservation) => {
+        const row: ReservationRow = {
+          id         : element._id,
+          car_id     : element.car_id,
+          fromDate   : element.fromDate,
+          tillDate   : element.tillDate
+        }
+        console.log("adding row:" +row);
+        ELEMENT_DATA.push(row);
+      });
+      this.dataSource.data = ELEMENT_DATA;
+      console.log(ELEMENT_DATA);
+      this.dataSource.paginator = this.paginator;
+    });    
+ 
   }
 
   ngAfterViewInit(){
+    console.log("ngAfterViewInit() ");
     this.dataSource.paginator = this.paginator;
   }
 
+  onCancelReservation(element: any): void {
+    const id = element.id
+    console.log("onCancelReservation("+id+")");
+    this.adminservice.cancelReservation(id).pipe(takeUntil(this.unsubscribe)).subscribe(res => {
+        console.log("onCancelReservation() - canceled.");
+        const ELEMENT_DATA: ReservationRow[] = [];
+        this.reservations = res;
+        this.reservations.forEach((reservation: Reservation) => {
+          const row: ReservationRow = {
+            id         : reservation._id,
+            car_id     : reservation.car_id,
+            fromDate   : reservation.fromDate,
+            tillDate   : reservation.tillDate
+          }
+          console.log("adding row:" +row);
+          ELEMENT_DATA.push(row);
+        });
+        this.dataSource.data = ELEMENT_DATA;
+        this.dataSource.paginator = this.paginator;
+    })
+  }
 }
+
+
+//record in mat table 
+export interface ReservationRow {
+  id: string;
+  car_id: string;
+  fromDate: Date;
+  tillDate: Date;
+}
+
+//record from mongo 
+export interface Reservation {
+  _id: string;
+  car_id: string;
+  from: number;
+  till: number;
+  fromDate: Date;
+  tillDate: Date;
+}
+
 
 
 export interface PeriodicElement {

@@ -1,5 +1,5 @@
 <div class="row">
-    <h2 class="text-center">Please give a dates</h2>
+    <h2 class="text-center">Enter dates</h2>
     <form (submit)="onSearch(dateform)" #dateform="ngForm" class="text-center">
         <input 
         type="text"
@@ -9,8 +9,8 @@
         bsDaterangepicker
         name="dateinput"
         [bsConfig]="{rangeInputFormat: 'YYYY-MM-DD', containerClass: 'theme-dark-blue'}"
-        ><BR>
-<button type="submit" class="btn btn-outline-success btn-block mx-auto" >Search</button>    
+        ><BR><BR>
+<button type="submit" class="btn btn-success btn-block mx-auto" >Search</button>    
 </form>
 
 </div>

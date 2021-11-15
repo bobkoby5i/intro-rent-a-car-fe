@@ -9,8 +9,9 @@
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-2 g-lg-3 mt-1" *ngIf="this.cars">
       <ng-container *ngFor="let car of cars; let i = index">
         <div class="col">
-          <mat-card class="p-0 rounded-0">
-            <img mat-card-image src="{{path_uploads}}{{ car.imgUrl }}" alt="{{car.brand}} {{car.model}} - Photo" *ngIf="car.imgUrl">
+          <mat-card class="p-0 ">
+
+            <img mat-card-image src="{{path_uploads}}{{ car.imgUrl }}"  onerror="this.onerror=null; this.src='/assets/images/no_photo.png'" alt="{{car.brand}} {{car.model}} - Photo" *ngIf="car.imgUrl">
             <img mat-card-image src="{{path_uploads}}no_photo.png"    alt="{{car.brand}} {{car.model}} - No Photo" *ngIf="!car.imgUrl">
             <mat-card-title class="px-3">{{car.brand}}</mat-card-title>
             <mat-card-subtitle class="px-3">{{car.model}}</mat-card-subtitle>

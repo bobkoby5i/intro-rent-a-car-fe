@@ -23,12 +23,21 @@ if (process.env.NODE_ENV === "production"){
     server.use('/icons', express.static(path.join(__dirname, '/assets/icons')))
     server.use('/uploads', express.static(path.join(__dirname, '/assets/uploads')))
     server.use('/cars', express.static(path.join(__dirname, '/assets/cars')))
+
+    server.use('/images',express.static(path.join(__dirname, '/rent-a-car-fe/src/assets/images')))
+    server.use('/js',express.static(path.join(__dirname,'/rent-a-car-fe/src/assets/js')))
+    server.use('/css',express.static(path.join(__dirname,'/rent-a-car-fe/src/assets/css')))
+    server.use('/fonts',express.static(path.join(__dirname,'/rent-a-car-fe/src/assets/fonts')))
 } else {
     console.log('NON PROD -> run ng serve');
     server.use(express.static('rent-a-car-fe/dist'))
     server.use('/icons',express.static('assets/icons'))
     server.use('/uploads',express.static('assets/uploads'))
     server.use('/cars',express.static('assets/cars'))
+    server.use('/images',express.static('rent-a-car-fe/src/assets/images'))
+    server.use('/js',express.static('rent-a-car-fe/src/assets/js'))
+    server.use('/css',express.static('rent-a-car-fe/src/assets/css'))
+    server.use('/fonts',express.static('rent-a-car-fe/src/assets/fonts'))
 }
 
 

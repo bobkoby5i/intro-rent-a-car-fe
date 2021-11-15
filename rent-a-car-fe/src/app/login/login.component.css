@@ -10,3 +10,7 @@ mat-form-field {
 .pull-right {
     float: right !important;
   }
+
+.notes p{
+    margin: 0;
+  }  

@@ -8,11 +8,13 @@ import { CreateCarComponent } from './create-car/create-car.component';
 import { ManageReservationsComponent } from './manage-reservations/manage-reservations.component';
 import { AdminUsersComponent } from './admin-users/admin-users.component';
 import { AdminCarsComponent } from './admin-cars/admin-cars.component';
+import { HomePageComponent } from './home-page/home-page.component';
 
 const routes: Routes = [
-    {path: '', component: LoginComponent},
+    {path: '', component: HomePageComponent},
     {path: 'login', component: LoginComponent},
     {path: 'register', component: RegisterComponent},
+    {path: 'home', component: HomePageComponent  },
     {path: 'main', component: MainPageComponent, canActivate: [AuthGuard] },
     {path: 'create-car', component: CreateCarComponent, canActivate: [AuthGuard] },
     {path: 'manage', component: ManageReservationsComponent, canActivate: [AuthGuard] },
@@ -20,8 +22,15 @@ const routes: Routes = [
     {path: 'cars', component: AdminCarsComponent, canActivate: [AuthGuard] },
 ];
 
+
+
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes,
+    {
+      scrollPositionRestoration: 'enabled',
+      anchorScrolling: 'enabled',
+      scrollOffset: [0, 64] // [x, y]
+    })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

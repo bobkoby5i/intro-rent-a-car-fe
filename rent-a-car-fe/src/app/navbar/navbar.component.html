@@ -1,46 +1,54 @@
-<mat-toolbar color="primary" class="sticky-top">
-    <mat-toolbar-row>
-        <button mat-icon-button (click)="sidenav.toggle()">
-            <mat-icon>menu</mat-icon>
-        </button>
-        <span>Rent a Car</span>
-        <span class="spacer"></span>
-        <div>        
-        <a *ngIf="auth === false" routerLink="/" mat-button><mat-icon>power_settings_new</mat-icon>Login</a>
-        <a *ngIf="auth === false" routerLink="/register" mat-button><mat-icon>fingerprint</mat-icon>Register</a>
-        <a *ngIf="auth === true" (click)="onLogout()" routerLink="/" mat-button><mat-icon>power_settings_new</mat-icon>Logout</a>        
-        </div>        
-</mat-toolbar-row>    
-</mat-toolbar>
 
-<mat-sidenav-container>
-    <mat-sidenav #sidenav>
-    <ng-container *ngIf="auth === true">
-        <mat-nav-list>
-            <a (click)="sidenav.toggle()" mat-list-item  routerLink="/main"><mat-icon>home</mat-icon>Home</a>
-        </mat-nav-list>        
-        
-        <ng-container *ngIf="admin === 1">
-            <mat-nav-list>
-                <a (click)="sidenav.toggle()" mat-list-item routerLink="/manage"><mat-icon>calendar_today</mat-icon>Reservations</a>
-            </mat-nav-list>
-            <mat-nav-list>
-                <a (click)="sidenav.toggle()" mat-list-item  routerLink="/create-car"><mat-icon>drive_eta</mat-icon>Add a car</a>
-            </mat-nav-list>        
-            <mat-nav-list>
-                <a (click)="sidenav.toggle()" mat-list-item  routerLink="/users"><mat-icon>person_add_disabled</mat-icon>Users</a>
-            </mat-nav-list>        
-            <mat-nav-list>
-                <a (click)="sidenav.toggle()" mat-list-item  routerLink="/cars"><mat-icon>drive_eta</mat-icon>Cars</a>
-            </mat-nav-list>   
-        </ng-container>
-    </ng-container>
-    <ng-container *ngIf="auth === false">
-        <mat-nav-list>
-            <a (click)="sidenav.toggle()" mat-list-item  routerLink="/login"><mat-icon>power_settings_new</mat-icon>Login</a>
-        </mat-nav-list>   
-    </ng-container>
+<script type="text/javascript">
 
-    </mat-sidenav>
+
+ 
+</script>
+
+
+<header style="background-color: #212529FF" >
+    
+    <nav class="navbar fixed-top navbar-expand-md navbar-dark bg-dark">
+        <div class="container-fluid container">
+            <a class="navbar-brand" href="#" [routerLink]="['/home']"><img src="/assets/images/rental_cars_logo_24.png" alt="RentACar_" title="RentACar_"></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-md-0">
+                    <!-- <li class="nav-item"><a class="nav-link active" aria-current="page" [routerLink]="['/home']" href="/home">Home</a></li> -->
+                    <li class="nav-item"><a class="nav-link" routerLink="/main" href="#">Book</a></li>
+                    <li class="nav-item"><a class="nav-link" routerLink="/cars" href="#">Fleet</a></li>
+                    <li class="nav-item"><a class="nav-link" [routerLink]="['/home']" fragment="who-we-are"   href="home#who-we-are">Academy</a></li>
+                    <li class="nav-item"><a class="nav-link" [routerLink]="['/home']" fragment="home-promotion"    href="home#home-promotion">Sale</a></li>
+                    <li class="nav-item dropdown unique-color-dark">
+                        <a class="nav-link dropdown-toggle disabled" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" *ngIf="admin !== 1">Admins</a>
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" *ngIf="admin === 1">Admins</a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" routerLink="/cars" *ngIf="admin === 1">Manage Cars</a></li>
+                            <li><a class="dropdown-item" routerLink="/users" *ngIf="admin === 1">Manage Users</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#">Change password</a></li>
+                        </ul>
+                    </li>
+                    <!--
+                    <li class="nav-item"><a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a></li>
+                    -->
+                </ul>
+
+
+                <div>
+                    <button class="btn btn-outline-light" type="submit" *ngIf="auth === false" routerLink="/login" >Login</button>
+                    <span *ngIf="admin !== 1">&nbsp;</span>
+                    <button class="btn btn-warning" type="submit"  *ngIf="auth === false" routerLink="/register" >Register</button>
+                    <button class="btn btn-outline-warning" type="submit"  *ngIf="auth === true" (click)="onLogout()" routerLink="/">Logout</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+</header>
+
+
+
     <router-outlet></router-outlet>    
-</mat-sidenav-container>

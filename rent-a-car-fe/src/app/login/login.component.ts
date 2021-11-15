@@ -55,7 +55,7 @@ autoAuthUser(){
         this.token = authInfo.token;
         this.userservice.isAuthenticated.next(true);
         this.userservice.isAdmin.next(authInfo.isAdmin);
-        this.router.navigate(['/main'])
+        this.router.navigate(['/home'])
     }
 }
 

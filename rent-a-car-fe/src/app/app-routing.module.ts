@@ -9,17 +9,19 @@ import { ManageReservationsComponent } from './manage-reservations/manage-reserv
 import { AdminUsersComponent } from './admin-users/admin-users.component';
 import { AdminCarsComponent } from './admin-cars/admin-cars.component';
 import { HomePageComponent } from './home-page/home-page.component';
+import { CarsComponent } from './cars/cars.component';
 
 const routes: Routes = [
     {path: '', component: HomePageComponent},
     {path: 'login', component: LoginComponent},
     {path: 'register', component: RegisterComponent},
     {path: 'home', component: HomePageComponent  },
+    {path: 'cars', component: CarsComponent  },
     {path: 'main', component: MainPageComponent, canActivate: [AuthGuard] },
     {path: 'create-car', component: CreateCarComponent, canActivate: [AuthGuard] },
     {path: 'manage', component: ManageReservationsComponent, canActivate: [AuthGuard] },
-    {path: 'users', component: AdminUsersComponent, canActivate: [AuthGuard] },
-    {path: 'cars', component: AdminCarsComponent, canActivate: [AuthGuard] },
+    {path: 'admin-users', component: AdminUsersComponent, canActivate: [AuthGuard] },
+    {path: 'admin-cars', component: AdminCarsComponent, canActivate: [AuthGuard] },
 ];
 
 

@@ -80,7 +80,7 @@ router.get('/users', verifyToken, (req, res, next) => {
     })
 })
 
-router.get('/cars', verifyToken, (req, res, next) => {
+router.get('/cars', (req, res, next) => {
     console.log('admin.js: received GET /api/admin/cars' );
     // select * from acars
     Car.find({}).then( cars => {   

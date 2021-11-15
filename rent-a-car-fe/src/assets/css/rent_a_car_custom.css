@@ -216,7 +216,7 @@ footer {
 
 @media (max-width: 767px) {
     .jumbo {
-        padding: 5px;
+        padding: 10px 2px;
         margin-bottom: 2px;
     }
     .jumbo h1 {
@@ -232,7 +232,7 @@ footer {
     }
 
     .homepage {
-        padding: 5px 2px;
+        padding: 10px 5px;
     }
 
     .homepage p {

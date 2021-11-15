@@ -25,8 +25,8 @@
                         <a class="nav-link dropdown-toggle disabled" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" *ngIf="admin !== 1">Admins</a>
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" *ngIf="admin === 1">Admins</a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" routerLink="/cars" *ngIf="admin === 1">Manage Cars</a></li>
-                            <li><a class="dropdown-item" routerLink="/users" *ngIf="admin === 1">Manage Users</a></li>
+                            <li><a class="dropdown-item" routerLink="/admin-cars" *ngIf="admin === 1">Manage Cars</a></li>
+                            <li><a class="dropdown-item" routerLink="/admin-users" *ngIf="admin === 1">Manage Users</a></li>
                             <li><hr class="dropdown-divider"></li>
                             <li><a class="dropdown-item" href="#">Change password</a></li>
                         </ul>

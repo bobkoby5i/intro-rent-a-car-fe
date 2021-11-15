@@ -1,8 +1,7 @@
 
 <mat-card class="rounded-0">
     <mat-card-content class="container mt-3">
-      <h1  class="text-center">Available vehicles</h1>
-      <app-datepicker></app-datepicker>
+      <h1  class="text-center">Our fleet</h1>
     </mat-card-content>
   </mat-card>
   <div class="container mb-3">
@@ -11,35 +10,37 @@
       <ng-container *ngFor="let car of cars; let i = index">
         <div class="col">
           <mat-card class="p-0 rounded-0">
-            <img mat-card-image src="{{path}}{{ car.imgUrl }}" alt="{{car.brand}} {{car.model}} - Photo"
-              *ngIf="car.imgUrl">
-            <img mat-card-image src="{{path}}no_photo.png" alt="{{car.brand}} {{car.model}} - No Photo"
-              *ngIf="!car.imgUrl">
+            <img mat-card-image src="{{path_uploads}}{{ car.imgUrl }}" alt="{{car.brand}} {{car.model}} - Photo" *ngIf="car.imgUrl">
+            <img mat-card-image src="{{path_uploads}}no_photo.png"    alt="{{car.brand}} {{car.model}} - No Photo" *ngIf="!car.imgUrl">
             <mat-card-title class="px-3">{{car.brand}}</mat-card-title>
             <mat-card-subtitle class="px-3">{{car.model}}</mat-card-subtitle>
             <mat-card-content class="px-3">
               <div class="row">
                 <div class="col d-flex align-items-center">
-                  <mat-icon>bolt</mat-icon>
+                  <!-- <mat-icon>bolt</mat-icon> -->
+                  <span class="fa-stack fa-1x">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-bolt fa-stack-1x fa-inverse"></i>
+                    </span>
+                  <!-- <img src="/assets/icons/passenger-50.png"  alt="seats"> -->
                   <div class="ms-2">
-                    <h3 matLine class="m-0">Power</h3>
-                    <p matLine class="m-0">
-                      {{car.power}}
-                    </p>
+                    <h3 matLine class="m-0">Engine</h3>
+                    <p matLine class="m-0">{{car.power}}</p>
                   </div>
                 </div>
                 <div class="col d-flex align-items-center">
-                  <mat-icon>chair</mat-icon>
+                  <!-- <mat-icon>chair</mat-icon> -->
+                  <span class="fa-stack fa-1x">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-user-o fa-stack-1x fa-inverse"></i>
+                    </span>
                   <div class="ms-2">
                     <h3 matLine class="m-0">Seats</h3>
-                    <p matLine class="m-0">
-                      {{car.seats}}
-                    </p>
+                    <p matLine class="m-0">{{car.seats}}</p>
                   </div>
                 </div>
               </div>
             </mat-card-content>
-            <button class="btn btn-outline-success btn-block"  (click)="onRent(car)" style="width:100%">Rent</button>
           </mat-card>
         </div>
       </ng-container>

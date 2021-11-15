@@ -35,6 +35,7 @@ import { AuthGuard } from './auth.guard';
 import { AppRoutingModule } from './app-routing.module';
 import { TokenInterceptorService } from './services/token-interceptor.service';
 import { HomePageComponent } from './home-page/home-page.component';
+import { CarsComponent } from './cars/cars.component';
 
 
 
@@ -52,7 +53,7 @@ import { HomePageComponent } from './home-page/home-page.component';
     DatepickerComponent,
     AdminUsersComponent, 
     DialogOverviewExampleDialog, 
-    AdminCarsComponent, HomePageComponent,
+    AdminCarsComponent, HomePageComponent, CarsComponent,
   ],entryComponents: [DialogOverviewExampleDialog],
   imports: [
     BsDatepickerModule.forRoot(),

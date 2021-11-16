@@ -37,14 +37,29 @@
 //   });
 // }); 
 
-$(document).on('click','.navbar-collapse',function(e) { // dziala z submenu; dziala z register i login; nie dziala z logoaou? 
+// dziala z submenu; dziala z register i login; nie dziala z logout bo jest wywolanie loggou() -> implemented? 
+// wiec dodalem do implementacji logout w ts to:
+// this.navbar = document.querySelector('.navbar-collapse');   
+// this.navbar.classList.remove('show'); 
+$(document).on('click','.navbar-collapse',function(e) { 
     if( $(e.target).is('a:not(".dropdown-toggle")') ) {
-        $(this).collapse('hide');
+      console.log("LINK")
+      $(this).collapse('hide');
     }
     console.log(e.target)
     if( $(e.target).is('button') ) {
+        console.log("BUTTON")
         $(this).collapse('hide');
     }    
+
+    console.log(e.target.id) 
+    if( e.target.id == 'logout_button' ) {
+      console.log("LOGOUT BUTTON")
+        this.onLogout();
+    }    
+
+    //(click)="onLogout()"
+
 });
 
 // $(document).on('click','.navbar-collapse',function(e) { // nie dziala z przyciskmai ale dziala z submenu

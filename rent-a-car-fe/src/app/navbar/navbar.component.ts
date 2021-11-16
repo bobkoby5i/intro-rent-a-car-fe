@@ -10,6 +10,7 @@ export class NavbarComponent implements OnInit {
 
   admin: number = 0;
   auth: boolean = false;
+  navbar: any;
 
   constructor(private userservice: UserService) { 
 
@@ -25,6 +26,7 @@ export class NavbarComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.navbar = document.querySelector('.navbar-collapse');    
     this.userservice.isAdmin.subscribe(result => {
       this.admin = <number>result;
     });
@@ -39,6 +41,10 @@ export class NavbarComponent implements OnInit {
     this.auth = false; 
     this.admin = 0; 
   }  
+
+  collapse(): void {
+    this.navbar.classList.remove('show');  
+  }
 
 
 

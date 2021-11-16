@@ -6,7 +6,6 @@ body {
 }
 
 
-
 .jumbo {
     text-align: center;
     background-image: url(../images/ford_bw_1.jpg);
@@ -35,6 +34,11 @@ body {
     padding: 0 50px 48px;
     margin-bottom: 30px;
     color: gold;
+}
+
+.btn-lg {
+    font-size: 36px;
+
 }
 
 

@@ -27,18 +27,43 @@
   <!-- This is our Font-Awesome rk -->
   <link rel="stylesheet" href="assets/fonts/font-awesome/css/font-awesome.min.css">
 
-  <!-- Custom styles for this template -->
-  <link href="assets/css/rent_a_car_custom.css" rel="stylesheet">
   
   <script>
 
-$(function() {
-  $(document).click(function (event) {
-    console.log("HERE CILICK");
-    $('.navbar-collapse').collapse('hide');
-  });
-}); 
+// $(function() { //zamyka wsztstko nawet jak drop dowan lub inne polle
+//   $(document).click(function (event) {
+//     console.log("HERE CILICK");
+//     $('.navbar-collapse').collapse('hide');
+//   });
+// }); 
+
+$(document).on('click','.navbar-collapse',function(e) { // dziala z submenu; dziala z register i login; nie dziala z logoaou? 
+    if( $(e.target).is('a:not(".dropdown-toggle")') ) {
+        $(this).collapse('hide');
+    }
+    console.log(e.target)
+    if( $(e.target).is('button') ) {
+        $(this).collapse('hide');
+    }    
+});
+
+// $(document).on('click','.navbar-collapse',function(e) { // nie dziala z przyciskmai ale dziala z submenu
+//     if( $(e.target).is('a:not(".dropdown-toggle")') ) {
+//         $(this).collapse('hide');
+//     }
+// });
+
+// $(document).ready(function(){   // nie dziala z przycismi nie dziala z submenu
+//     $(".navbar-nav").click(function(event){
+//       $(".navbar-collapse").collapse('hide');
+//     });
+//   });
+
 </script>  
+
+<!-- Custom styles for this template -->
+<link href="/assets/css/rent_a_car_custom.css" rel="stylesheet">
+  
 
 </head>
 <body>

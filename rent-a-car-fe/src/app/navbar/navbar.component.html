@@ -17,10 +17,10 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-md-0">
                     <!-- <li class="nav-item"><a class="nav-link active" aria-current="page" [routerLink]="['/home']" href="/home">Home</a></li> -->
-                    <li class="nav-item"><a class="nav-link" routerLink="/main" href="#">Book</a></li>
                     <li class="nav-item"><a class="nav-link" routerLink="/cars" href="#">Fleet</a></li>
-                    <li class="nav-item"><a class="nav-link" [routerLink]="['/home']" fragment="who-we-are"   href="home#who-we-are">Academy</a></li>
+                    <li class="nav-item"><a class="nav-link" routerLink="/main" href="#">Book</a></li>
                     <li class="nav-item"><a class="nav-link" [routerLink]="['/home']" fragment="home-promotion"    href="home#home-promotion">Sale</a></li>
+                    <li class="nav-item"><a class="nav-link" [routerLink]="['/home']" fragment="who-we-are"   href="home#who-we-are">Academy</a></li>
                     <li class="nav-item dropdown unique-color-dark">
                         <a class="nav-link dropdown-toggle disabled" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" *ngIf="admin !== 1">Admins</a>
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" *ngIf="admin === 1">Admins</a>

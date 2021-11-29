@@ -80,6 +80,19 @@ router.get('/users', verifyToken, (req, res, next) => {
     })
 })
 
+router.get('/users2',  (req, res, next) => {
+    console.log('admin.js: received GET /api/admin/users2' );
+    // select email, isAdmin from users
+    User.find({}, 'email isAdmin').then( users => {   
+        if (!users) {
+            res.status(404).json({message: 'GET users - no users'});
+        }
+        res.status(200).json(users);
+    }).catch(error => {
+        console.log(error);
+    })
+})
+
 router.get('/cars', (req, res, next) => {
     console.log('admin.js: received GET /api/admin/cars' );
     // select * from acars

@@ -3,6 +3,7 @@ const cors = require('cors');
 const bodyparser = require('body-parser');
 const app = express.Router()
 const mongoose = require('mongoose')
+const path = require('path');
 // SET "MONGO_RENT_A_CAR_URI=mongodb+srv://intro-rent-a-car-user:<password>@<dbname>.tlx1x.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
 const mongo_uri = process.env.MONGO_RENT_A_CAR_URI || "mongodb://localhost:27017/intro-rent-a-car";
 //const appbe = express();
@@ -37,10 +38,12 @@ app.get('/',(req, res,next) => {
 
 const userRoutes = require('./user'); //reference to ./user.js
 const adminRoutes = require('./admin'); //reference to ./admin.js
-const photoRoutes = require('./photo-load'); //reference to ./user.js
+const photoRoutes = require('./photo-load'); 
 app.use('/user', userRoutes)
 app.use('/admin', adminRoutes)
 app.use('/photo', photoRoutes)
+
+app.use('/be_uploads', express.static(path.join(__dirname,'be_uploads')))
 
 
 module.exports = app;

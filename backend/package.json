@@ -1,0 +1,32 @@
+{
+  "name": "intro-rent-a-car",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "heroku-postbuild": "npm run client-fe-install && npm run client-fe-build",
+    "client-fe-install": "cd rent-a-car-fe && npm install",
+    "client-fe-build": "cd rent-a-car-fe && npm run build-prod",
+    "start:server": "nodemon server.js",
+    "start": "node server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "gridfs-stream": "^1.1.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.13.7",
+    "multer": "^1.4.3",
+    "multer-gridfs-storage": "^5.0.2"
+  },
+  "engines": {
+    "node": "14.16",
+    "npm": "6.14"
+  }
+}

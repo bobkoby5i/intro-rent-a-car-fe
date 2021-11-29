@@ -149,7 +149,7 @@ footer {
     flex-direction: column;
     justify-content: space-between;
  }
-  
+
 
 
 
@@ -258,8 +258,8 @@ footer {
     }
 
     .home-promotion {
-        background-size: cover;
-        /* https://www.pxfuel.com/en/free-photo-xppgl/download */
+      background-size: 100% 100%;
+      /* https://www.pxfuel.com/en/free-photo-xppgl/download */
         /* background-image: url(../images/car_sepia_2.jpg); */
         background-position: center;
         color: white;
